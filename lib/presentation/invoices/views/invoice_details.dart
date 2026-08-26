@@ -154,8 +154,8 @@ class _InvoiceHero extends StatelessWidget {
                           'Invoice Details',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12.5.sp,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 9.6.sp,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
@@ -169,8 +169,8 @@ class _InvoiceHero extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 13.8.sp,
+                          fontWeight: FontWeight.w900,
                           height: 1,
                         ),
                       ),
@@ -187,7 +187,7 @@ class _InvoiceHero extends StatelessWidget {
                           _date(data.datePaid),
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12.5.sp,
+                            fontSize: 9.3.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -200,8 +200,8 @@ class _InvoiceHero extends StatelessWidget {
                       'Total Amount',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12.2.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 10.2.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(height: 0.7.h),
@@ -213,8 +213,8 @@ class _InvoiceHero extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 14.2.sp,
+                          fontWeight: FontWeight.w900,
                           height: 1,
                         ),
                       ),
@@ -271,7 +271,11 @@ class _BillToCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _SectionTitle('Bill To'),
+                const _SectionTitle(
+                  'Bill To',
+                  fontSize: 9.5,
+                  fontWeight: FontWeight.w700,
+                ),
                 SizedBox(height: 1.h),
                 Text(
                   _dash(data.userName),
@@ -279,8 +283,8 @@ class _BillToCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 11.4.sp,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 SizedBox(height: 0.7.h),
@@ -356,8 +360,8 @@ class _CompanyCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: InvoiceDetails._green,
-              fontSize: 12.3.sp,
-              fontWeight: FontWeight.w800,
+              fontSize: 10.2.sp,
+              fontWeight: FontWeight.w900,
               height: 1.16,
             ),
           ),
@@ -481,8 +485,8 @@ class _ChargesBreakdown extends StatelessWidget {
                     'Total Amount',
                     style: TextStyle(
                       color: InvoiceDetails._green,
-                      fontSize: 12.5.sp,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 10.5.sp,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
@@ -490,8 +494,8 @@ class _ChargesBreakdown extends StatelessWidget {
                   _money(data.grandTotal),
                   style: TextStyle(
                     color: InvoiceDetails._green,
-                    fontSize: 14.5.sp,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 11.8.sp,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ],
@@ -583,7 +587,7 @@ class _AmountDueCard extends GetView<InvoiceDetailController> {
             'Amount Due',
             style: TextStyle(
               color: InvoiceDetails._green,
-              fontSize: 12.4.sp,
+              fontSize: 9.5.sp,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -594,8 +598,8 @@ class _AmountDueCard extends GetView<InvoiceDetailController> {
               _money(data.grandTotal),
               style: TextStyle(
                 color: InvoiceDetails._text,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w800,
+                fontSize: 12.8.sp,
+                fontWeight: FontWeight.w900,
               ),
             ),
           ),
@@ -619,8 +623,8 @@ class _AmountDueCard extends GetView<InvoiceDetailController> {
                   Text(
                     'Pay Now',
                     style: TextStyle(
-                      fontSize: 13.5.sp,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 10.8.sp,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                   SizedBox(width: 2.w),
@@ -752,9 +756,15 @@ class _SmallHeaderIcon extends StatelessWidget {
 }
 
 class _SectionTitle extends StatelessWidget {
-  const _SectionTitle(this.text);
+  const _SectionTitle(
+    this.text, {
+    this.fontSize = 9.6,
+    this.fontWeight = FontWeight.w900,
+  });
 
   final String text;
+  final double fontSize;
+  final FontWeight fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -764,8 +774,8 @@ class _SectionTitle extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         color: InvoiceDetails._text,
-        fontSize: 10.8.sp,
-        fontWeight: FontWeight.w800,
+        fontSize: fontSize.sp,
+        fontWeight: fontWeight,
       ),
     );
   }
@@ -790,8 +800,8 @@ class _KeyValueLine extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 10.5.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 8.5.sp,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -804,7 +814,7 @@ class _KeyValueLine extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 10.2.sp,
+                fontSize: 8.5.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -834,8 +844,8 @@ class _ChargeLine extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 10.8.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 8.8.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -845,8 +855,8 @@ class _ChargeLine extends StatelessWidget {
             textAlign: TextAlign.right,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 10.8.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 8.8.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
@@ -897,8 +907,8 @@ class _TimelineItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: InvoiceDetails._text,
-                    fontSize: 9.6.sp,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 8.5.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 if (subtitle != null) ...[
@@ -907,8 +917,8 @@ class _TimelineItem extends StatelessWidget {
                     subtitle!,
                     style: TextStyle(
                       color: InvoiceDetails._text,
-                      fontSize: 9.sp,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 8.5.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
@@ -966,8 +976,8 @@ class _MiniAction extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 9.4.sp,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 8.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
               ),
@@ -994,8 +1004,8 @@ class _UnpaidPill extends StatelessWidget {
         'UNPAID',
         style: TextStyle(
           color: Colors.black,
-          fontSize: 9.8.sp,
-          fontWeight: FontWeight.w800,
+          fontSize: 8.4.sp,
+          fontWeight: FontWeight.w900,
         ),
       ),
     );
@@ -1068,10 +1078,10 @@ class _StateMessage extends StatelessWidget {
         child: Text(
           message,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: InvoiceDetails._text,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -1096,9 +1106,9 @@ String _money(dynamic value) {
 
 TextStyle _bodyStyle(BuildContext context) {
   return TextStyle(
-    color: InvoiceDetails._text,
-    fontSize: 10.6.sp,
-    fontWeight: FontWeight.w400,
+    color: InvoiceDetails._muted,
+    fontSize: 9.1.sp,
+    fontWeight: FontWeight.w500,
     height: 1.35,
   );
 }
