@@ -583,7 +583,7 @@ class _AmountDueCard extends GetView<InvoiceDetailController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      minHeight: 17.h,
+      constraints: BoxConstraints(minHeight: 17.h),
       padding: EdgeInsets.all(3.2.w),
       decoration: BoxDecoration(
         color: const Color(0xFFEFF7F1),
