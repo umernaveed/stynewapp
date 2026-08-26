@@ -42,16 +42,16 @@ class Dashboard extends GetView<DashboardController> {
               final horizontal = constraints.maxWidth >= 600 ? 8.w : 3.w;
               return SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.fromLTRB(horizontal, 1.2.h, horizontal, 3.h),
+                padding: EdgeInsets.fromLTRB(horizontal, 1.2.h, horizontal, 2.h),
                 child: Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 720),
                     child: Column(
                       children: [
                         const _HomeHeader(),
-                        SizedBox(height: 3.h),
+                        SizedBox(height: 2.4.h),
                         _AccountSummaryCard(data: state, user: user),
-                        SizedBox(height: 2.6.h),
+                        SizedBox(height: 2.1.h),
                         _StatsPanel(data: state),
                       ],
                     ),
@@ -143,7 +143,7 @@ class _AccountSummaryCard extends StatelessWidget {
       child: CustomPaint(
         painter: const _SummaryCardPainter(),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(4.w, 3.1.h, 4.w, 3.h),
+          padding: EdgeInsets.fromLTRB(4.w, 2.5.h, 4.w, 2.35.h),
           child: Column(
             children: [
               Row(
@@ -163,7 +163,7 @@ class _AccountSummaryCard extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 25.sp,
+                              fontSize: 30,
                               fontWeight: FontWeight.w800,
                               height: 1.05,
                             ),
@@ -179,7 +179,7 @@ class _AccountSummaryCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14.5.sp,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   height: 1.1,
                                 ),
@@ -212,7 +212,7 @@ class _AccountSummaryCard extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.8.h),
+                padding: EdgeInsets.symmetric(vertical: 2.15.h),
                 child: const Divider(color: Colors.white, thickness: 1.1),
               ),
               IntrinsicHeight(
@@ -307,7 +307,7 @@ class _InitialsAvatar extends StatelessWidget {
               initials,
               style: TextStyle(
                 color: Dashboard._green,
-                fontSize: 24.sp,
+                fontSize: 28,
                 fontWeight: FontWeight.w800,
                 height: 1,
               ),
@@ -353,7 +353,7 @@ class _SummaryMetric extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 13.6.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   height: 1.08,
                 ),
@@ -362,7 +362,7 @@ class _SummaryMetric extends StatelessWidget {
             Icon(labelIcon, color: Colors.white, size: 2.6.h),
           ],
         ),
-        SizedBox(height: 2.2.h),
+        SizedBox(height: 1.55.h),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.end,
           spacing: 1.4.w,
@@ -375,7 +375,7 @@ class _SummaryMetric extends StatelessWidget {
                 color: label.startsWith('Outstanding')
                     ? Dashboard._yellow
                     : Colors.white,
-                fontSize: 26.sp,
+                fontSize: 34,
                 fontWeight: FontWeight.w800,
                 height: 0.94,
               ),
@@ -386,7 +386,7 @@ class _SummaryMetric extends StatelessWidget {
                 suffix,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 13.5.sp,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                   height: 1.1,
                 ),
@@ -394,10 +394,10 @@ class _SummaryMetric extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 2.4.h),
+        SizedBox(height: 1.8.h),
         SizedBox(
           width: double.infinity,
-          height: 7.2.h,
+          height: 6.1.h,
           child: ElevatedButton.icon(
             onPressed: onTap,
             icon: Icon(buttonIcon, size: 3.h),
@@ -406,7 +406,7 @@ class _SummaryMetric extends StatelessWidget {
               child: Text(
                 buttonLabel,
                 style: TextStyle(
-                  fontSize: 13.6.sp,
+                  fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -435,7 +435,7 @@ class _StatsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 3.8.w, vertical: 3.8.h),
+      padding: EdgeInsets.symmetric(horizontal: 3.8.w, vertical: 2.7.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -474,7 +474,7 @@ class _StatsPanel extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 3.4.h),
+            padding: EdgeInsets.symmetric(vertical: 2.3.h),
             child: const Divider(color: Color(0xFFE7ECEF), thickness: 1.2),
           ),
           IntrinsicHeight(
@@ -524,22 +524,22 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 19.h,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 0.8.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 10.8.h,
-            height: 10.8.h,
+            width: 9.2.h,
+            height: 9.2.h,
             decoration: BoxDecoration(color: badgeColor, shape: BoxShape.circle),
             child: Icon(
               icon,
               color: iconColor,
-              size: filledIcon ? 6.8.h : 5.5.h,
+              size: filledIcon ? 5.8.h : 4.7.h,
             ),
           ),
-          SizedBox(height: 1.9.h),
+          SizedBox(height: 1.35.h),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
@@ -547,13 +547,13 @@ class _StatTile extends StatelessWidget {
               maxLines: 1,
               style: TextStyle(
                 color: Dashboard._text,
-                fontSize: 23.sp,
+                fontSize: 32,
                 fontWeight: FontWeight.w800,
                 height: 0.95,
               ),
             ),
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.65.h),
           Text(
             label,
             textAlign: TextAlign.center,
@@ -561,7 +561,7 @@ class _StatTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 13.7.sp,
+              fontSize: 15.5,
               fontWeight: FontWeight.w400,
               height: 1.22,
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/theme/base_theme.dart';
 
 class LightTheme extends BaseTheme {
@@ -16,7 +15,7 @@ class LightTheme extends BaseTheme {
         unselectedItemColor: const Color(0xFF181725),
         selectedLabelStyle: TextStyle(
           color: const Color(0xFF4791CE),
-          fontSize: 8.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
         showSelectedLabels: true,
@@ -24,7 +23,7 @@ class LightTheme extends BaseTheme {
         showUnselectedLabels: true,
         unselectedLabelStyle: TextStyle(
           color: const Color(0xFF181725),
-          fontSize: 8.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
       );
