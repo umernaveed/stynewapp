@@ -1,0 +1,4 @@
+*.p8
+**/android/key.properties
+**/android/local.properties
+**/android/app/keystore
