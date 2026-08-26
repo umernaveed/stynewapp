@@ -156,16 +156,20 @@ class _PackageSearchField extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Search by HAWB / Tracking / Package No.',
-                hintStyle: TextStyle(
+                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle?.copyWith(
                   color: Packages._muted,
-                  fontSize: 13.2.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
-                ),
+                ) ?? const TextStyle(
+                    color: Packages._muted,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
               ),
               style: TextStyle(
                 color: Packages._text,
-                fontSize: 13.2.sp,
-                fontWeight: FontWeight.w500,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
@@ -285,8 +289,8 @@ class _PackageCard extends GetView<DashboardPackagesController> {
                   Text(
                     'Invoice Detail',
                     style: TextStyle(
-                      fontSize: 15.3.sp,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 10.5.sp,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   const Spacer(),
@@ -384,8 +388,8 @@ class _PackageInfoRow extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Packages._text,
-            fontSize: 13.4.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: 9.sp,
+            fontWeight: FontWeight.w600,
             height: 1.1,
           ),
         ),
@@ -398,8 +402,8 @@ class _PackageInfoRow extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Packages._green,
-                  fontSize: 13.1.sp,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.w400,
                   height: 1.1,
                 ),
               ),
@@ -424,8 +428,8 @@ class _InlineValue extends StatelessWidget {
           label,
           style: TextStyle(
             color: Packages._text,
-            fontSize: 13.2.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: 9.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(width: 2.w),
@@ -433,8 +437,8 @@ class _InlineValue extends StatelessWidget {
           value,
           style: TextStyle(
             color: Packages._green,
-            fontSize: 13.2.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: 9.sp,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ],
@@ -463,8 +467,8 @@ class _StatusPill extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Packages._green,
-            fontSize: 12.8.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: 9.sp,
+            fontWeight: FontWeight.w400,
             height: 1.1,
           ),
         ),
@@ -511,7 +515,7 @@ class _InvoiceFileAction extends StatelessWidget {
                       ? Icons.file_download_outlined
                       : Icons.cloud_upload_outlined,
                   color: Colors.white,
-                  size: 3.8.h,
+                  size: 2.3.h,
                 ),
               ),
               SizedBox(width: 4.w),
@@ -527,8 +531,8 @@ class _InvoiceFileAction extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Packages._text,
-                        fontSize: 13.2.sp,
-                        fontWeight: FontWeight.w800,
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w600,
                         height: 1.1,
                       ),
                     ),
@@ -541,7 +545,7 @@ class _InvoiceFileAction extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Packages._muted,
-                        fontSize: 11.8.sp,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w400,
                         height: 1.18,
                       ),
@@ -642,7 +646,7 @@ class DescriptionWidget extends StatelessWidget {
           style: TextStyle(
             color: Packages._text,
             fontSize: 9.sp,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 4),
