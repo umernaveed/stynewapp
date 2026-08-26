@@ -138,7 +138,7 @@ class _ShippingHeroCard extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 22.sp,
+                          fontSize: 13.8.sp,
                           fontWeight: FontWeight.w800,
                           height: 1.08,
                         ),
@@ -151,8 +151,8 @@ class _ShippingHeroCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 13.2.sp,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 9.8.sp,
+                        fontWeight: FontWeight.w500,
                         height: 1.18,
                       ),
                     ),
@@ -277,7 +277,7 @@ class AddressItemWidget extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(
                           color: Address._deepGreen,
-                          fontSize: 20.5.sp,
+                          fontSize: 11.8.sp,
                           fontWeight: FontWeight.w800,
                           height: 1.05,
                         ),
@@ -290,8 +290,8 @@ class AddressItemWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Address._muted,
-                        fontSize: 12.7.sp,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 8.9.sp,
+                        fontWeight: FontWeight.w500,
                         height: 1.18,
                       ),
                     ),
@@ -324,7 +324,7 @@ class AddressItemWidget extends StatelessWidget {
                 child: Text(
                   'Copy Full Address',
                   style: TextStyle(
-                    fontSize: 15.5.sp,
+                    fontSize: 10.6.sp,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -391,8 +391,8 @@ class _AddressRow extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Address._deepGreen,
-                    fontSize: 12.3.sp,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 8.4.sp,
+                    fontWeight: FontWeight.w600,
                     height: 1.1,
                   ),
                 ),
@@ -403,7 +403,7 @@ class _AddressRow extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Address._text,
-                    fontSize: 12.9.sp,
+                    fontSize: 9.8.sp,
                     fontWeight: FontWeight.w800,
                     height: 1.18,
                   ),
@@ -547,10 +547,10 @@ class _StateMessage extends StatelessWidget {
           child: Text(
             message,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Address._text,
-              fontSize: 24,
-              fontWeight: FontWeight.w400,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
