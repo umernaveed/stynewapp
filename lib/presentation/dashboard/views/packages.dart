@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/get_di.dart';
 import 'package:straight_to_yard/app/core/routes/app_pages.dart';
 import 'package:straight_to_yard/app/extensions/string_ext.dart';
+import 'package:straight_to_yard/app/util/flush_snackbar.dart';
 import 'package:straight_to_yard/data/models/get_packages_ready_for_pickup_response/get_packages_ready_for_pickup_response.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/controller/download_file_controller.dart';
