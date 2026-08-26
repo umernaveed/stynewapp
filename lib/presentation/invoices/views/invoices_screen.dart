@@ -1,8 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +10,7 @@ import 'package:straight_to_yard/data/models/invoice/invoice.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/invoices/controller/invoices_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
 
 class InvoicesScreen extends GetView<InvoicesController> {
@@ -110,31 +108,16 @@ class _InvoicesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 4.h,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints.tight(Size(6.h, 6.h)),
-          onPressed: () {
+    return DynamicAppHeader(
+      logoWidthFactor: 0.38,
+      maxLogoWidth: 190,
+      onBack: () {
             if (Get.isRegistered<BottomNavController>()) {
               Get.back(id: find<BottomNavController>().bottomNavNestedID);
             } else {
               Get.back();
             }
-          },
-          icon: const Icon(Icons.chevron_left_rounded, color: InvoicesScreen._green),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/svgs/app_logo_straight_to_yard.svg',
-          width: math.min(context.width * 0.38, 190.0),
-          fit: BoxFit.contain,
-        ),
-        const Spacer(),
-        SizedBox(width: 6.h),
-      ],
+      },
     );
   }
 }

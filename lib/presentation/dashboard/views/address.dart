@@ -1,13 +1,11 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/util/flush_snackbar.dart';
 import 'package:straight_to_yard/data/models/dashboard_address_data/dashboard_address_data.dart';
 import 'package:straight_to_yard/presentation/dashboard/controllers/dashboard_address_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
 
 class Address extends GetView<DashboardAddressController> {
@@ -43,7 +41,7 @@ class Address extends GetView<DashboardAddressController> {
                     constraints: const BoxConstraints(maxWidth: 720),
                     child: Column(
                       children: [
-                        const _AddressHeader(),
+                        _AddressHeader(logoUrl: state.setting.siteLogo),
                         SizedBox(height: 3.h),
                         const _ShippingHeroCard(),
                         SizedBox(height: 2.6.h),
@@ -64,28 +62,15 @@ class Address extends GetView<DashboardAddressController> {
 }
 
 class _AddressHeader extends StatelessWidget {
-  const _AddressHeader();
+  const _AddressHeader({required this.logoUrl});
+
+  final String logoUrl;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 4.h,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints.tight(Size(6.h, 6.h)),
-          onPressed: () {},
-          icon: const Icon(Icons.menu_rounded, color: Address._green),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/svgs/app_logo_straight_to_yard.svg',
-          width: math.min(context.width * 0.36, 180.0),
-          fit: BoxFit.contain,
-        ),
-        const Spacer(),
-        IconButton(
+    return DynamicAppHeader(
+      logoUrl: logoUrl,
+      trailing: IconButton(
           iconSize: 3.9.h,
           padding: EdgeInsets.zero,
           constraints: BoxConstraints.tight(Size(6.h, 6.h)),
@@ -94,8 +79,7 @@ class _AddressHeader extends StatelessWidget {
             Icons.notifications_none_rounded,
             color: Address._green,
           ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -21,7 +21,9 @@ class AccountScreen extends StatelessWidget {
     final controller = find<BottomNavController>();
     return BaseScreen(
       backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
-      appBar: const AuthCustomAppBar.withSmallAppLogo(backButtonVisible: false),
+      appBar: AuthCustomAppBar.withSmallAppLogo(
+        backID: controller.bottomNavNestedID,
+      ),
       showGradients: false,
       bottomGradient: 'assets/images/img_account_bottom.png',
       value: SystemUiOverlayStyle.dark,

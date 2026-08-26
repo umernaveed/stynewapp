@@ -24,7 +24,9 @@ class DeliveryScreen extends GetView<DeliveryController> {
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
       backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
-      appBar: const AuthCustomAppBar.withSmallAppLogo(backButtonVisible: false),
+      appBar: AuthCustomAppBar.withSmallAppLogo(
+        backID: find<BottomNavController>().bottomNavNestedID,
+      ),
       body: Container(
         width: context.width,
         margin:

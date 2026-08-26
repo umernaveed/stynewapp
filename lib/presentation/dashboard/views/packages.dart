@@ -1,7 +1,4 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +10,7 @@ import 'package:straight_to_yard/data/models/get_packages_ready_for_pickup_respo
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/controller/download_file_controller.dart';
 import 'package:straight_to_yard/presentation/dashboard/controllers/dashboard_packages_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 import 'package:straight_to_yard/presentation/widgets/dialogs/download_dialog.dart';
 import 'package:straight_to_yard/presentation/widgets/dialogs/file_upload_dialog.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
@@ -99,30 +97,16 @@ class _PackagesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 4.h,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints.tight(Size(6.h, 6.h)),
-          onPressed: () {
-            if (Get.isRegistered<BottomNavController>()) {
-              find<BottomNavController>().currentIndex.value = 0;
-            }
-            Get.find<BottomNavController>()
-                .onTabChange(0);
-          },
-          icon: const Icon(Icons.chevron_left_rounded, color: Packages._green),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/svgs/app_logo_straight_to_yard.svg',
-          width: math.min(context.width * 0.34, 170.0),
-          fit: BoxFit.contain,
-        ),
-        const Spacer(),
-        Container(
+    return DynamicAppHeader(
+      logoWidthFactor: 0.34,
+      maxLogoWidth: 170,
+      onBack: () {
+        if (Get.isRegistered<BottomNavController>()) {
+          find<BottomNavController>().currentIndex.value = 0;
+          find<BottomNavController>().onTabChange(0);
+        }
+      },
+      trailing: Container(
           width: 8.8.h,
           height: 8.8.h,
           decoration: BoxDecoration(
@@ -134,8 +118,7 @@ class _PackagesHeader extends StatelessWidget {
             color: Packages._green.withOpacity(0.45),
             size: 5.h,
           ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -1,8 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/get_di.dart';
@@ -13,6 +10,7 @@ import 'package:straight_to_yard/domain/repositories/local_repository.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/dashboard/controllers/dashboard_controller.dart';
 import 'package:straight_to_yard/presentation/dashboard/controllers/dashboard_tabbar_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
 
 class Dashboard extends GetView<DashboardController> {
@@ -48,7 +46,7 @@ class Dashboard extends GetView<DashboardController> {
                     constraints: const BoxConstraints(maxWidth: 720),
                     child: Column(
                       children: [
-                        const _HomeHeader(),
+                        _HomeHeader(logoUrl: state.setting.appLogo),
                         SizedBox(height: 2.4.h),
                         _AccountSummaryCard(data: state, user: user),
                         SizedBox(height: 2.1.h),
@@ -67,31 +65,24 @@ class Dashboard extends GetView<DashboardController> {
 }
 
 class _HomeHeader extends StatelessWidget {
-  const _HomeHeader();
+  const _HomeHeader({required this.logoUrl});
+
+  final String logoUrl;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 4.h,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints.tight(Size(6.h, 6.h)),
-          onPressed: () {
-            final bottomNavNestedID = find<BottomNavController>().bottomNavNestedID;
-            Get.toNamed(AppPages.account, id: bottomNavNestedID);
-          },
-          icon: const Icon(Icons.menu_rounded, color: Dashboard._green),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/svgs/app_logo_straight_to_yard.svg',
-          width: math.min(context.width * 0.36, 180.0),
-          fit: BoxFit.contain,
-        ),
-        const Spacer(),
-        IconButton(
+    return DynamicAppHeader(
+      logoUrl: logoUrl,
+      onBack: () {
+        final bottomNavNestedID = find<BottomNavController>().bottomNavNestedID;
+        final navigator = Get.nestedKey(bottomNavNestedID)?.currentState;
+        if (navigator?.canPop() ?? false) {
+          Get.back(id: bottomNavNestedID);
+        } else {
+          Get.toNamed(AppPages.account, id: bottomNavNestedID);
+        }
+      },
+      trailing: IconButton(
           iconSize: 3.9.h,
           padding: EdgeInsets.zero,
           constraints: BoxConstraints.tight(Size(6.h, 6.h)),
@@ -100,8 +91,7 @@ class _HomeHeader extends StatelessWidget {
             Icons.notifications_none_rounded,
             color: Dashboard._green,
           ),
-        ),
-      ],
+      ),
     );
   }
 }

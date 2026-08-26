@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/assets/drawables.dart';
 import 'package:straight_to_yard/app/extensions/string_ext.dart';
+import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/onboarding/controllers/on_boarding_controller.dart';
 import 'package:straight_to_yard/presentation/widgets/cache_image.dart';
 
@@ -63,6 +64,13 @@ class AuthCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   if (usingNavigator) {
                     Navigator.of(context).pop();
+                  } else if (backID != null) {
+                    final navigator = Get.nestedKey(backID!)?.currentState;
+                    if (navigator?.canPop() ?? false) {
+                      Get.back(id: backID);
+                    } else if (Get.isRegistered<BottomNavController>()) {
+                      Get.find<BottomNavController>().onTabChange(0);
+                    }
                   } else {
                     Get.back(id: backID);
                   }

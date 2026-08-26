@@ -1,8 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/extensions/string_ext.dart';
@@ -11,6 +8,7 @@ import 'package:straight_to_yard/data/models/invoice_detail/invoice_detail.dart'
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/invoices/controller/invoice_detail_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
 
 class InvoiceDetails extends GetView<InvoiceDetailController> {
@@ -89,40 +87,21 @@ class _DetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 4.h,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints.tight(Size(6.h, 6.h)),
-          onPressed: () {
+    return DynamicAppHeader(
+      onBack: () {
             if (Get.isRegistered<BottomNavController>()) {
               Get.back(id: Get.find<BottomNavController>().bottomNavNestedID);
             } else {
               Get.back();
             }
-          },
-          icon: const Icon(
-            Icons.chevron_left_rounded,
-            color: InvoiceDetails._green,
-          ),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/svgs/app_logo_straight_to_yard.svg',
-          width: math.min(context.width * 0.36, 180.0),
-          fit: BoxFit.contain,
-        ),
-        const Spacer(),
-        IconButton(
+      },
+      trailing: IconButton(
           iconSize: 3.2.h,
           padding: EdgeInsets.zero,
           constraints: BoxConstraints.tight(Size(6.h, 6.h)),
           onPressed: () {},
           icon: const Icon(Icons.more_vert_rounded, color: InvoiceDetails._green),
-        ),
-      ],
+      ),
     );
   }
 }

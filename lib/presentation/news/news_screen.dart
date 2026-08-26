@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/assets/drawables.dart';
+import 'package:straight_to_yard/app/core/get_di.dart';
 import 'package:straight_to_yard/data/models/news/news.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
+import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/news/news_controller.dart';
 import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
 
@@ -21,7 +23,9 @@ class NewsScreen extends GetView<NewsController> {
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
       backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
-      appBar: const AuthCustomAppBar.withSmallAppLogo(backButtonVisible: false),
+      appBar: AuthCustomAppBar.withSmallAppLogo(
+        backID: find<BottomNavController>().bottomNavNestedID,
+      ),
       body: RefreshIndicator(
         onRefresh: () => Future.sync(
           () => controller.pagingController.refresh(),

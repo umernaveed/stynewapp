@@ -24,7 +24,9 @@ class AuthorizeScreen extends GetView<AuthorizeController> {
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
       backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
-      appBar: const AuthCustomAppBar.withSmallAppLogo(backButtonVisible: false),
+      appBar: AuthCustomAppBar.withSmallAppLogo(
+        backID: find<BottomNavController>().bottomNavNestedID,
+      ),
       body: Container(
         width: context.width,
         margin: EdgeInsets.only(left: 6.w, right: 6.w, top: 5.h, bottom: 2.h),
