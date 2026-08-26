@@ -153,7 +153,7 @@ class _AccountSummaryCard extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 30,
+                              fontSize: 22,
                               fontWeight: FontWeight.w800,
                               height: 1.05,
                             ),
@@ -169,8 +169,8 @@ class _AccountSummaryCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
                                   height: 1.1,
                                 ),
                               ),
@@ -343,8 +343,8 @@ class _SummaryMetric extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 11.2,
+                  fontWeight: FontWeight.w700,
                   height: 1.08,
                 ),
               ),
@@ -365,7 +365,7 @@ class _SummaryMetric extends StatelessWidget {
                 color: label.startsWith('Outstanding')
                     ? Dashboard._yellow
                     : Colors.white,
-                fontSize: 34,
+                fontSize: 21,
                 fontWeight: FontWeight.w800,
                 height: 0.94,
               ),
@@ -376,8 +376,8 @@ class _SummaryMetric extends StatelessWidget {
                 suffix,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
                   height: 1.1,
                 ),
               ),
@@ -396,7 +396,7 @@ class _SummaryMetric extends StatelessWidget {
               child: Text(
                 buttonLabel,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 11.5,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -537,7 +537,7 @@ class _StatTile extends StatelessWidget {
               maxLines: 1,
               style: TextStyle(
                 color: Dashboard._text,
-                fontSize: 32,
+                fontSize: 18,
                 fontWeight: FontWeight.w800,
                 height: 0.95,
               ),
@@ -551,8 +551,8 @@ class _StatTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 15.5,
-              fontWeight: FontWeight.w400,
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
               height: 1.22,
             ),
           ),
