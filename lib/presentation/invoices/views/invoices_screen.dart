@@ -29,30 +29,36 @@ class InvoicesScreen extends GetView<InvoicesController> {
     return BaseScreen(
       showGradients: false,
       wrapWithAnnotatedRegion: true,
-      backgroundColor: const Color(0xFFF8FBFD),
+      backgroundColor: const Color(0xFFF8FBFF),
       value: SystemUiOverlayStyle.dark,
       body: SafeArea(
         bottom: false,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final horizontal = constraints.maxWidth >= 600 ? 8.w : 3.6.w;
+            final horizontal = constraints.maxWidth >= 600 ? 8.w : 4.2.w;
             return Column(
               children: [
                 Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(horizontal, 1.2.h, horizontal, 0),
+                  padding: EdgeInsets.symmetric(horizontal: horizontal),
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 720),
-                      child: Column(
-                        children: [
-                          const _InvoicesHeader(),
-                          SizedBox(height: 3.2.h),
-                          _InvoiceSearchField(
-                            controller: controller.textEditingController,
-                          ),
-                          SizedBox(height: 2.6.h),
-                        ],
+                      child: const _InvoicesHeader(),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    horizontal,
+                    2.1.h,
+                    horizontal,
+                    1.2.h,
+                  ),
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 720),
+                      child: _InvoiceSearchField(
+                        controller: controller.textEditingController,
                       ),
                     ),
                   ),
@@ -66,16 +72,26 @@ class InvoicesScreen extends GetView<InvoicesController> {
                     child: PagedListView<int, Invoice>.separated(
                       pagingController: controller.pagingController,
                       physics: const AlwaysScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.fromLTRB(horizontal, 0, horizontal, 3.h),
+                      padding: EdgeInsets.fromLTRB(
+                        horizontal,
+                        0.8.h,
+                        horizontal,
+                        2.5.h,
+                      ),
                       builderDelegate: PagedChildBuilderDelegate<Invoice>(
                         animateTransitions: true,
                         transitionDuration: 500.milliseconds,
                         firstPageProgressIndicatorBuilder: (context) {
-                          return const _InvoiceShimmerList();
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.h),
+                            child: const _InvoiceShimmerList(),
+                          );
                         },
                         newPageProgressIndicatorBuilder: (context) {
-                          return const _InvoiceShimmerList();
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.h),
+                            child: const _InvoiceShimmerList(),
+                          );
                         },
                         noItemsFoundIndicatorBuilder: (context) {
                           return const _StateMessage('No invoices found');
@@ -90,7 +106,7 @@ class InvoicesScreen extends GetView<InvoicesController> {
                         },
                       ),
                       separatorBuilder: (context, index) =>
-                          SizedBox(height: 2.4.h),
+                          SizedBox(height: 2.h),
                     ),
                   ),
                 ),
@@ -108,16 +124,41 @@ class _InvoicesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicAppHeader(
-      logoWidthFactor: 0.38,
-      maxLogoWidth: 190,
-      onBack: () {
-            if (Get.isRegistered<BottomNavController>()) {
-              Get.back(id: find<BottomNavController>().bottomNavNestedID);
-            } else {
-              Get.back();
-            }
-      },
+    return SizedBox(
+      height: 8.2.h,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 12.w,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 10.w, minHeight: 5.h),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(minWidth: 10.w, minHeight: 5.h),
+                  onPressed: () {
+                    if (Get.isRegistered<BottomNavController>()) {
+                      Get.back(id: find<BottomNavController>().bottomNavNestedID);
+                    } else {
+                      Get.back();
+                    }
+                  },
+                  icon: Icon(
+                    Icons.chevron_left_rounded,
+                    color: InvoicesScreen._green,
+                    size: 2.5.h,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const Spacer(),
+          AppLogo(width: 20.5.w, height: 8.2.h),
+          const Spacer(),
+          SizedBox(width: 12.w),
+        ],
+      ),
     );
   }
 }
@@ -133,21 +174,21 @@ class _InvoiceSearchField extends StatelessWidget {
       height: 7.4.h,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: InvoicesScreen._line),
         boxShadow: const [
           BoxShadow(
             color: Color(0x0D000000),
-            blurRadius: 14,
-            offset: Offset(0, 7),
+            blurRadius: 18,
+            offset: Offset(0, 8),
           ),
         ],
       ),
       child: Row(
         children: [
-          SizedBox(width: 4.w),
-          Icon(Icons.search_rounded, color: InvoicesScreen._green, size: 4.2.h),
-          SizedBox(width: 3.w),
+          SizedBox(width: 2.8.w),
+          Icon(Icons.search_rounded, color: InvoicesScreen._green, size: 3.4.h),
+          SizedBox(width: 2.2.w),
           Expanded(
             child: TextFormField(
               controller: controller,
@@ -157,28 +198,37 @@ class _InvoiceSearchField extends StatelessWidget {
                 hintText: 'Search by invoice no, user name...',
                 hintStyle: TextStyle(
                   color: InvoicesScreen._muted,
-                  fontSize: 13.2.sp,
+                  fontSize: 10.2.sp,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               style: TextStyle(
                 color: InvoicesScreen._text,
-                fontSize: 13.2.sp,
+                fontSize: 10.2.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          Container(width: 1, height: 5.h, color: InvoicesScreen._line),
-          SizedBox(width: 2.w),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.filter_alt_outlined,
-              color: InvoicesScreen._green,
-              size: 4.h,
+          Container(width: 1, height: 4.3.h, color: InvoicesScreen._line),
+          SizedBox(width: 1.5.w),
+          SizedBox(
+            width: 10.6.w,
+            height: 5.3.h,
+            child: Material(
+              color: const Color(0xFFF8FAFC),
+              borderRadius: BorderRadius.circular(13),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(13),
+                onTap: () {},
+                child: Icon(
+                  Icons.filter_alt_outlined,
+                  color: InvoicesScreen._green,
+                  size: 3.2.h,
+                ),
+              ),
             ),
           ),
-          SizedBox(width: 1.w),
+          SizedBox(width: 1.2.w),
         ],
       ),
     );
@@ -195,10 +245,10 @@ class _InvoiceCard extends StatelessWidget {
     final status = invoice.status.trim().isEmpty ? 'Unpaid' : invoice.status;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(3.4.w, 3.h, 3.4.w, 2.7.h),
+      padding: EdgeInsets.fromLTRB(3.2.w, 2.2.h, 3.2.w, 1.9.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: InvoicesScreen._line),
         boxShadow: const [
           BoxShadow(
@@ -216,7 +266,7 @@ class _InvoiceCard extends StatelessWidget {
                 icon: Icons.receipt_long_outlined,
                 color: InvoicesScreen._green,
               ),
-              SizedBox(width: 3.w),
+              SizedBox(width: 3.5.w),
               Expanded(
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
@@ -226,7 +276,7 @@ class _InvoiceCard extends StatelessWidget {
                     maxLines: 1,
                     style: TextStyle(
                       color: InvoicesScreen._text,
-                      fontSize: 18.sp,
+                      fontSize: 11.2.sp,
                       fontWeight: FontWeight.w800,
                       height: 1.05,
                     ),
@@ -237,13 +287,11 @@ class _InvoiceCard extends StatelessWidget {
               _TopStatusBadge(status: status),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 3.h),
-            child: const Divider(color: InvoicesScreen._line, thickness: 1),
-          ),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+          SizedBox(height: 1.9.h),
+          const Divider(color: InvoicesScreen._line, height: 1, thickness: 1),
+          SizedBox(height: 2.2.h),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Column(
@@ -272,7 +320,12 @@ class _InvoiceCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(width: 1, color: InvoicesScreen._line),
+                Container(
+                  width: 1,
+                  height: 16.5.h,
+                  margin: EdgeInsets.symmetric(horizontal: 2.2.w),
+                  color: InvoicesScreen._line,
+                ),
                 Expanded(
                   child: Column(
                     children: [
@@ -302,12 +355,11 @@ class _InvoiceCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
           ),
-          SizedBox(height: 3.h),
+          SizedBox(height: 2.2.h),
           SizedBox(
             width: double.infinity,
-            height: 7.h,
+            height: 6.2.h,
             child: ElevatedButton(
               onPressed: _openInvoiceDetail,
               style: ElevatedButton.styleFrom(
@@ -315,7 +367,7 @@ class _InvoiceCard extends StatelessWidget {
                 backgroundColor: InvoicesScreen._green,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(9),
                 ),
               ),
               child: Row(
@@ -324,12 +376,12 @@ class _InvoiceCard extends StatelessWidget {
                   Text(
                     'Invoice Detail',
                     style: TextStyle(
-                      fontSize: 15.5.sp,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 10.8.sp,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
-                  Icon(Icons.chevron_right_rounded, size: 4.2.h),
+                  Icon(Icons.chevron_right_rounded, size: 3.4.h),
                 ],
               ),
             ),
@@ -383,51 +435,47 @@ class _InvoiceMetric extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 2.6.w),
-      child: Row(
-        children: [
-          _InvoiceIconBadge(
-            icon: icon,
-            color: color,
-            background: iconBackground,
-            size: 7.3.h,
-          ),
-          SizedBox(width: 2.5.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: const Color(0xFF2D303A),
-                    fontSize: 12.6.sp,
-                    fontWeight: FontWeight.w400,
-                    height: 1.1,
-                  ),
+    return Row(
+      children: [
+        _InvoiceIconBadge(
+          icon: icon,
+          color: color,
+          background: iconBackground,
+        ),
+        SizedBox(width: 2.7.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: const Color(0xFF2D303A),
+                  fontSize: 8.8.sp,
+                  fontWeight: FontWeight.w500,
+                  height: 1.1,
                 ),
-                SizedBox(height: 1.h),
-                customValue ??
-                    Text(
-                      value ?? '-',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 12.8.sp,
-                        fontWeight: FontWeight.w800,
-                        height: 1.1,
-                      ),
+              ),
+              SizedBox(height: 0.45.h),
+              customValue ??
+                  Text(
+                    value ?? '-',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 9.8.sp,
+                      fontWeight: FontWeight.w800,
+                      height: 1.1,
                     ),
-              ],
-            ),
+                  ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -438,24 +486,26 @@ class _InvoiceIconBadge extends StatelessWidget {
     required this.color,
     this.background = const Color(0xFFEFF7F1),
     this.size,
+    this.iconSize,
   });
 
   final IconData icon;
   final Color color;
   final Color background;
   final double? size;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
-    final badgeSize = size ?? 8.3.h;
+    final badgeSize = size ?? 6.1.h;
     return Container(
       width: badgeSize,
       height: badgeSize,
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(9),
       ),
-      child: Icon(icon, color: color, size: badgeSize * 0.52),
+      child: Icon(icon, color: color, size: iconSize ?? 3.h),
     );
   }
 }
@@ -468,10 +518,10 @@ class _TopStatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.4.h),
+      padding: EdgeInsets.symmetric(horizontal: 2.6.w, vertical: 0.9.h),
       decoration: BoxDecoration(
         color: const Color(0xFFFFF5DF),
-        borderRadius: BorderRadius.circular(11),
+        borderRadius: BorderRadius.circular(7),
       ),
       child: Text(
         status,
@@ -479,8 +529,8 @@ class _TopStatusBadge extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
           color: const Color(0xFFE59A00),
-          fontSize: 13.4.sp,
-          fontWeight: FontWeight.w800,
+          fontSize: 9.2.sp,
+          fontWeight: FontWeight.w700,
           height: 1.1,
         ),
       ),
@@ -496,16 +546,15 @@ class _PaidStatusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 4.6.h,
-      padding: EdgeInsets.symmetric(horizontal: 2.6.w),
+      padding: EdgeInsets.symmetric(horizontal: 2.4.w, vertical: 0.55.h),
       decoration: BoxDecoration(
         color: InvoicesScreen._blue,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.check_rounded, color: Colors.white, size: 2.5.h),
+          Icon(Icons.check_rounded, color: Colors.white, size: 1.9.h),
           SizedBox(width: 1.3.w),
           Text(
             status,
@@ -513,8 +562,8 @@ class _PaidStatusButton extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 11.6.sp,
-              fontWeight: FontWeight.w800,
+              fontSize: 8.8.sp,
+              fontWeight: FontWeight.w700,
               height: 1.1,
             ),
           ),
@@ -530,7 +579,7 @@ class _MetricRule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 2.6.w, vertical: 2.4.h),
+      padding: EdgeInsets.symmetric(vertical: 0.95.h),
       child: const Divider(color: InvoicesScreen._line, thickness: 1),
     );
   }
@@ -547,7 +596,7 @@ class _InvoiceShimmerList extends StatelessWidget {
       padding: EdgeInsets.zero,
       itemCount: 2,
       itemBuilder: (context, index) => const _InvoiceShimmerCard(),
-      separatorBuilder: (context, index) => SizedBox(height: 2.4.h),
+      separatorBuilder: (context, index) => SizedBox(height: 2.h),
     );
   }
 }
@@ -558,7 +607,7 @@ class _InvoiceShimmerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShimmerWidget(
-      radius: BorderRadius.circular(24),
+      radius: BorderRadius.circular(16),
       child: SizedBox(width: context.width, height: 62.h),
     );
   }
@@ -574,12 +623,26 @@ class _StateMessage extends StatelessWidget {
     return SizedBox(
       height: context.height / 2,
       child: Center(
-        child: Text(
-          message,
-          style: const TextStyle(
-            color: InvoicesScreen._text,
-            fontSize: 24,
-            fontWeight: FontWeight.w400,
+        child: Padding(
+          padding: EdgeInsets.only(top: 14.h),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.receipt_long_outlined,
+                color: InvoicesScreen._green,
+                size: 8.h,
+              ),
+              SizedBox(height: 1.5.h),
+              Text(
+                message,
+                style: TextStyle(
+                  color: InvoicesScreen._text,
+                  fontSize: 10.5.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
         ),
       ),
