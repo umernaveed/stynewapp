@@ -122,7 +122,7 @@ class _AccountSummaryCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Dashboard._green,
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(25),
         boxShadow: const [
           BoxShadow(
             color: Color(0x1A000000),
@@ -134,7 +134,7 @@ class _AccountSummaryCard extends StatelessWidget {
       child: CustomPaint(
         painter: const _SummaryCardPainter(),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(4.w, 2.5.h, 4.w, 2.35.h),
+          padding: EdgeInsets.fromLTRB(4.3.w, 2.15.h, 4.1.w, 2.15.h),
           child: Column(
             children: [
               Row(
@@ -204,41 +204,46 @@ class _AccountSummaryCard extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 2.15.h),
-                child: const Divider(color: Colors.white, thickness: 1.1),
+                child: const Divider(
+                  color: Colors.white,
+                  height: 1,
+                  thickness: 1,
+                ),
               ),
-              IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: _SummaryMetric(
-                        label: 'Outstanding Balance',
-                        labelIcon: Icons.visibility_outlined,
-                        value: data.outstandingBalance,
-                        suffix: _balanceSuffix(data.outstandingBalance),
-                        buttonIcon: Icons.description_outlined,
-                        buttonLabel: 'View Invoices',
-                        onTap: _openInvoices,
-                      ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: _SummaryMetric(
+                      label: 'Outstanding Balance',
+                      labelIcon: Icons.visibility_outlined,
+                      value: data.outstandingBalance,
+                      suffix: _balanceSuffix(data.outstandingBalance),
+                      buttonIcon: Icons.description_outlined,
+                      buttonLabel: 'View Invoices',
+                      onTap: _openInvoices,
                     ),
-                    VerticalDivider(
-                      width: 6.w,
-                      thickness: 1,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+                    child: Container(
+                      width: 1,
+                      height: 9.8.h,
                       color: Colors.white.withOpacity(0.85),
                     ),
-                    Expanded(
-                      child: _SummaryMetric(
-                        label: 'Packages Ready',
-                        labelIcon: Icons.inventory_2_outlined,
-                        value: data.outstandingPackage.toString(),
-                        suffix: 'For Pickup',
-                        buttonIcon: Icons.chevron_right_rounded,
-                        buttonLabel: 'View Packages',
-                        onTap: _openPackages,
-                      ),
+                  ),
+                  Expanded(
+                    child: _SummaryMetric(
+                      label: 'Packages Ready',
+                      labelIcon: Icons.inventory_2_outlined,
+                      value: data.outstandingPackage.toString(),
+                      suffix: 'For Pickup',
+                      buttonIcon: Icons.chevron_right_rounded,
+                      buttonLabel: 'View Packages',
+                      onTap: _openPackages,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -277,8 +282,8 @@ class _InitialsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 8.6.h,
-      height: 8.6.h,
+      width: 56,
+      height: 56,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -388,7 +393,6 @@ class _SummaryMetric extends StatelessWidget {
         SizedBox(height: 1.8.h),
         SizedBox(
           width: double.infinity,
-          height: 6.1.h,
           child: ElevatedButton.icon(
             onPressed: onTap,
             icon: Icon(buttonIcon, size: 3.h),
@@ -406,6 +410,10 @@ class _SummaryMetric extends StatelessWidget {
               elevation: 0,
               backgroundColor: Colors.white,
               foregroundColor: Dashboard._deepGreen,
+              padding: EdgeInsets.symmetric(
+                horizontal: 2.3.w,
+                vertical: 1.0.h,
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(11),
               ),
