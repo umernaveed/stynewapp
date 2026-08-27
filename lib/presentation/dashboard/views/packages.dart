@@ -40,11 +40,11 @@ class Packages extends GetView<DashboardPackagesController> {
                   child: Column(
                     children: [
                       const _PackagesHeader(),
-                      SizedBox(height: 3.2.h),
+                      SizedBox(height: 2.3.h),
                       _PackageSearchField(
                         controller: controller.textEditingController,
                       ),
-                      SizedBox(height: 2.6.h),
+                      SizedBox(height: 1.8.h),
                     ],
                   ),
                 ),
@@ -57,7 +57,7 @@ class Packages extends GetView<DashboardPackagesController> {
                   () => controller.pagingController.refresh(),
                 ),
                 child: PagedListView<int, Package>.separated(
-                  padding: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 3.h),
+                  padding: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 2.2.h),
                   physics: const AlwaysScrollableScrollPhysics(),
                   pagingController: controller.pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Package>(
@@ -81,7 +81,7 @@ class Packages extends GetView<DashboardPackagesController> {
                       );
                     },
                   ),
-                  separatorBuilder: (context, index) => SizedBox(height: 2.4.h),
+                  separatorBuilder: (context, index) => SizedBox(height: 1.6.h),
                 ),
               ),
             ),
@@ -131,7 +131,7 @@ class _PackageSearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 7.4.h,
+      height: 6.8.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -168,8 +168,8 @@ class _PackageSearchField extends StatelessWidget {
               ),
               style: TextStyle(
                 color: Packages._text,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 12.5.sp,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -189,7 +189,7 @@ class _PackageCard extends GetView<DashboardPackagesController> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(3.4.w, 3.h, 3.4.w, 2.7.h),
+      padding: EdgeInsets.fromLTRB(3.4.w, 2.25.h, 3.4.w, 2.1.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -219,7 +219,7 @@ class _PackageCard extends GetView<DashboardPackagesController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _InlineValue(label: 'Quantity:', value: _dash(item.quantity)),
-                  SizedBox(height: 2.2.h),
+                  SizedBox(height: 1.3.h),
                   _InlineValue(
                     label: 'Weight:',
                     value: _weight(item.weight),
@@ -228,7 +228,7 @@ class _PackageCard extends GetView<DashboardPackagesController> {
               ),
             ],
           ),
-          SizedBox(height: 2.4.h),
+          SizedBox(height: 1.5.h),
           _PackageInfoRow(
             icon: Icons.business_center_outlined,
             label: 'HAWB:',
@@ -269,10 +269,10 @@ class _PackageCard extends GetView<DashboardPackagesController> {
             label: 'Description:',
             value: _dash(item.itemDescription),
           ),
-          SizedBox(height: 2.4.h),
+          SizedBox(height: 1.6.h),
           SizedBox(
             width: double.infinity,
-            height: 6.9.h,
+            height: 5.9.h,
             child: ElevatedButton(
               onPressed: () => _openInvoiceDetail(item),
               style: ElevatedButton.styleFrom(
@@ -299,7 +299,7 @@ class _PackageCard extends GetView<DashboardPackagesController> {
               ),
             ),
           ),
-          SizedBox(height: 2.1.h),
+          SizedBox(height: 1.4.h),
           _InvoiceFileAction(
             showDownloadButton: item.invoice.isNotEmpty,
             onTap: () => _openInvoiceFileAction(item),
@@ -378,8 +378,8 @@ class _PackageInfoRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          width: 6.4.h,
-          child: Icon(icon, color: iconColor, size: 3.8.h),
+          width: 5.4.h,
+          child: Icon(icon, color: iconColor, size: 3.25.h),
         ),
         SizedBox(width: 1.w),
         Text(
@@ -388,8 +388,8 @@ class _PackageInfoRow extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Packages._text,
-            fontSize: 9.sp,
-            fontWeight: FontWeight.w600,
+            fontSize: 9.6.sp,
+            fontWeight: FontWeight.w700,
             height: 1.1,
           ),
         ),
@@ -402,8 +402,8 @@ class _PackageInfoRow extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Packages._green,
-                  fontSize: 9.sp,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 9.6.sp,
+                  fontWeight: FontWeight.w500,
                   height: 1.1,
                 ),
               ),
@@ -428,8 +428,8 @@ class _InlineValue extends StatelessWidget {
           label,
           style: TextStyle(
             color: Packages._text,
-            fontSize: 9.sp,
-            fontWeight: FontWeight.w600,
+            fontSize: 9.6.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
         SizedBox(width: 2.w),
@@ -437,8 +437,8 @@ class _InlineValue extends StatelessWidget {
           value,
           style: TextStyle(
             color: Packages._green,
-            fontSize: 9.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.6.sp,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -456,7 +456,7 @@ class _StatusPill extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 3.2.w, vertical: 1.25.h),
+        padding: EdgeInsets.symmetric(horizontal: 2.8.w, vertical: 0.9.h),
         decoration: BoxDecoration(
           color: const Color(0xFFEFF7F1),
           borderRadius: BorderRadius.circular(10),
@@ -467,8 +467,8 @@ class _StatusPill extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Packages._green,
-            fontSize: 9.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.4.sp,
+            fontWeight: FontWeight.w600,
             height: 1.1,
           ),
         ),
@@ -496,7 +496,7 @@ class _InvoiceFileAction extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.6.h),
+          padding: EdgeInsets.symmetric(horizontal: 3.5.w, vertical: 1.2.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: const Color(0xFFFFE2A5)),
@@ -504,8 +504,8 @@ class _InvoiceFileAction extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: 6.5.h,
-                height: 6.5.h,
+                width: 5.6.h,
+                height: 5.6.h,
                 decoration: const BoxDecoration(
                   color: Packages._yellow,
                   shape: BoxShape.circle,
@@ -518,7 +518,7 @@ class _InvoiceFileAction extends StatelessWidget {
                   size: 2.3.h,
                 ),
               ),
-              SizedBox(width: 4.w),
+              SizedBox(width: 3.2.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -531,12 +531,12 @@ class _InvoiceFileAction extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Packages._text,
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 9.6.sp,
+                        fontWeight: FontWeight.w700,
                         height: 1.1,
                       ),
                     ),
-                    SizedBox(height: 0.7.h),
+                    SizedBox(height: 0.45.h),
                     Text(
                       showDownloadButton
                           ? 'Tap the icon to download the attached file.'
@@ -545,8 +545,8 @@ class _InvoiceFileAction extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Packages._muted,
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 9.2.sp,
+                        fontWeight: FontWeight.w500,
                         height: 1.18,
                       ),
                     ),
@@ -567,7 +567,7 @@ class _CardRule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 8.h, top: 2.2.h, bottom: 2.2.h),
+      padding: EdgeInsets.only(left: 6.4.h, top: 1.25.h, bottom: 1.25.h),
       child: const Divider(color: Packages._line, thickness: 1),
     );
   }
