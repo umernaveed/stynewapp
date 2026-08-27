@@ -73,6 +73,7 @@ class _HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicAppHeader(
       logoUrl: logoUrl,
+      leadingIcon: Icons.menu_rounded,
       onBack: () {
         final bottomNavNestedID = find<BottomNavController>().bottomNavNestedID;
         final navigator = Get.nestedKey(bottomNavNestedID)?.currentState;

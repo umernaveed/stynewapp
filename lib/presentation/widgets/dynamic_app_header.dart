@@ -15,6 +15,7 @@ class DynamicAppHeader extends StatelessWidget {
     this.logoUrl,
     this.trailing,
     this.onBack,
+    this.leadingIcon = Icons.chevron_left_rounded,
     this.logoWidthFactor = 0.36,
     this.maxLogoWidth = 180,
     this.iconColor = const Color(0xFF087C25),
@@ -23,6 +24,7 @@ class DynamicAppHeader extends StatelessWidget {
   final String? logoUrl;
   final Widget? trailing;
   final VoidCallback? onBack;
+  final IconData leadingIcon;
   final double logoWidthFactor;
   final double maxLogoWidth;
   final Color iconColor;
@@ -37,7 +39,7 @@ class DynamicAppHeader extends StatelessWidget {
           padding: EdgeInsets.zero,
           constraints: BoxConstraints.tight(Size(6.h, 6.h)),
           onPressed: onBack ?? _pop,
-          icon: Icon(Icons.chevron_left_rounded, color: iconColor),
+          icon: Icon(leadingIcon, color: iconColor),
         ),
         const Spacer(),
         _DynamicLogo(
