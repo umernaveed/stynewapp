@@ -7,6 +7,7 @@ import 'package:straight_to_yard/firebase_initlizer.dart';
 import 'package:straight_to_yard/loading_screen.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/onboarding/controllers/on_boarding_controller.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 
 class SplashScreen extends GetView<OnBoardingController> {
   const SplashScreen({super.key});
@@ -45,11 +46,9 @@ class _SplashView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
-                child: Image.asset(
-                  'assets/images/icon.png',
+                child: AppLogo(
                   width: 241,
                   height: 138,
-                  fit: BoxFit.fill,
                 ),
               ),
             ],

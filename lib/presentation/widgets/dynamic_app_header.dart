@@ -42,9 +42,10 @@ class DynamicAppHeader extends StatelessWidget {
           icon: Icon(leadingIcon, color: iconColor),
         ),
         const Spacer(),
-        _DynamicLogo(
+        AppLogo(
           logoUrl: logoUrl,
           width: math.min(context.width * logoWidthFactor, maxLogoWidth),
+          height: 9.h,
         ),
         const Spacer(),
         trailing ?? SizedBox(width: 6.h, height: 6.h),
@@ -67,14 +68,17 @@ class DynamicAppHeader extends StatelessWidget {
   }
 }
 
-class _DynamicLogo extends StatelessWidget {
-  const _DynamicLogo({
-    required this.logoUrl,
+class AppLogo extends StatelessWidget {
+  const AppLogo({
+    super.key,
+    this.logoUrl,
     required this.width,
+    required this.height,
   });
 
   final String? logoUrl;
   final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +89,7 @@ class _DynamicLogo extends StatelessWidget {
         return _LogoImage(
           resolvedLogo: _resolveLogoUrl(logoUrl, metaLogo),
           width: width,
+          height: height,
         );
       });
     }
@@ -92,6 +97,7 @@ class _DynamicLogo extends StatelessWidget {
     return _LogoImage(
       resolvedLogo: _resolveLogoUrl(logoUrl, null),
       width: width,
+      height: height,
     );
   }
 
@@ -111,42 +117,41 @@ class _LogoImage extends StatelessWidget {
   const _LogoImage({
     required this.resolvedLogo,
     required this.width,
+    required this.height,
   });
 
   final String resolvedLogo;
   final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    if (resolvedLogo.isEmpty) {
-      return SvgPicture.asset(
-        'assets/svgs/app_logo_straight_to_yard.svg',
-        width: width,
-        fit: BoxFit.contain,
-      );
-    }
+    final fallback = Image.asset(
+      'assets/images/icon.png',
+      width: width,
+      height: height,
+      fit: BoxFit.contain,
+    );
+
+    if (resolvedLogo.isEmpty) return fallback;
 
     if (_isSvgUrl(resolvedLogo)) {
       return SvgPicture.network(
         resolvedLogo,
         width: width,
-        height: 9.h,
+        height: height,
         fit: BoxFit.contain,
-        placeholderBuilder: (_) => SizedBox(width: width, height: 9.h),
+        placeholderBuilder: (_) => SizedBox(width: width, height: height),
       );
     }
 
     return CachedImage(
       imageUrl: resolvedLogo,
       width: width,
-      height: 9.h,
+      height: height,
       fit: BoxFit.contain,
-      placeHolder: SizedBox(width: width, height: 9.h),
-      errorWidget: SvgPicture.asset(
-        'assets/svgs/app_logo_straight_to_yard.svg',
-        width: width,
-        fit: BoxFit.contain,
-      ),
+      placeHolder: SizedBox(width: width, height: height),
+      errorWidget: fallback,
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
@@ -18,11 +19,9 @@ class LoadingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                child: Image.asset(
-                  'assets/images/icon.png',
+                child: AppLogo(
                   width: 241,
                   height: 138,
-                  fit: BoxFit.fill,
                 ),
               ),
               const SizedBox(height: 16),

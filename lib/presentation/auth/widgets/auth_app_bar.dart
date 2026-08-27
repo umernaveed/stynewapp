@@ -3,10 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/assets/drawables.dart';
-import 'package:straight_to_yard/app/extensions/string_ext.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
-import 'package:straight_to_yard/presentation/onboarding/controllers/on_boarding_controller.dart';
-import 'package:straight_to_yard/presentation/widgets/cache_image.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 
 enum AuthScreenType {
   withLargeAppLogo,
@@ -42,8 +40,6 @@ class AuthCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onBoardingController = Get.find<OnBoardingController>();
-
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -86,56 +82,15 @@ class AuthCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(width: 8.1.w),
             Visibility(
               visible: appLogoVisble,
-              child: Obx(
-                () {
-                  final appLogo =
-                      onBoardingController.meta.value.setting?.appLogo ?? '';
-                  final isEmpty = appLogo.isEmpty;
-                  final isSVG = appLogo.isSvgOrPngUrl();
-                  return Container(
-                    margin: _type.isSmall
-                        ? EdgeInsets.zero
-                        : EdgeInsets.only(top: 2.3.h),
-                    child: isEmpty
-                        ? Padding(
-                            padding: EdgeInsets.only(
-                                right: _type.isSmall ? 0 : 10.w),
-                            child: Image.asset(
-                              'assets/images/icon.png',
-                              fit: BoxFit.fill,
-                              width: _type.isSmall ? 20.2 : 49.w,
-                              height: _type.isSmall ? 7.h : 14.h,
-                            ),
-                          )
-                        : isSVG
-                            ? SvgPicture.network(
-                                appLogo,
-                                fit: BoxFit.fill,
-                                width: _type.isSmall ? 20.2 : 49.w,
-                                height: _type.isSmall ? 7.h : 14.h,
-                                placeholderBuilder: (context) {
-                                  return Container(
-                                    color: Colors.white,
-                                    child: const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  );
-                                },
-                              )
-                            : Center(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      right: _type.isSmall ? 0 : 10.w),
-                                  child: CachedImage(
-                                    imageUrl: appLogo,
-                                    height: _type.isSmall ? 7.h : 14.h,
-                                    width: _type.isSmall ? 100 : 49.w,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                  );
-                },
+              child: Container(
+                margin: _type.isSmall
+                    ? EdgeInsets.zero
+                    : EdgeInsets.only(top: 2.3.h),
+                padding: EdgeInsets.only(right: _type.isSmall ? 0 : 10.w),
+                child: AppLogo(
+                  width: _type.isSmall ? 20.2 : 49.w,
+                  height: _type.isSmall ? 7.h : 14.h,
+                ),
               ),
             ),
             const Spacer(flex: 2),
