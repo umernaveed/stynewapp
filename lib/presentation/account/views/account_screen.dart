@@ -1,387 +1,368 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/get_di.dart';
 import 'package:straight_to_yard/app/core/routes/app_pages.dart';
 import 'package:straight_to_yard/app/util/flush_snackbar.dart';
 import 'package:straight_to_yard/presentation/account/controllers/account_controller.dart';
-import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
 import 'package:straight_to_yard/presentation/widgets/cache_image.dart';
 import 'package:straight_to_yard/presentation/widgets/dialogs/account_delete_dialog.dart';
+import 'package:straight_to_yard/presentation/widgets/dynamic_app_header.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
+  static const _green = Color(0xFF087C25);
+  static const _darkGreen = Color(0xFF005D1B);
+  static const _yellow = Color(0xFFFFB800);
+  static const _text = Color(0xFF090D1B);
+  static const _muted = Color(0xFF5C6070);
+  static const _line = Color(0xFFE4E8EA);
+  static const _danger = Color(0xFFE50914);
+
   @override
   Widget build(BuildContext context) {
-    final controller = find<BottomNavController>();
+    final bottomNavController = find<BottomNavController>();
+    final horizontal = context.width >= 600 ? 8.w : 3.w;
+
     return BaseScreen(
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
-      appBar: AuthCustomAppBar.withSmallAppLogo(
-        backID: controller.bottomNavNestedID,
-      ),
+      backgroundColor: const Color(0xFFF8FBFF),
       showGradients: false,
-      bottomGradient: 'assets/images/img_account_bottom.png',
       value: SystemUiOverlayStyle.dark,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SizedBox(height: 3.h),
-                const UserProfileWidget(),
-                SizedBox(height: 3.4.h),
-                const AppDivider(),
-                _AccountTile(
-                  title: 'Dashboard',
-                  iconURL: 'assets/svgs/ic_dashboard_account.png',
-                  onTap: () {
-                    controller.onTabChange(0);
+      body: SafeArea(
+        bottom: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 2.4.h),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 720),
+                  child: Column(
+                    children: [
+                      _AccountHeader(bottomNavController: bottomNavController),
+                      SizedBox(height: 2.1.h),
+                      const _ProfileHero(),
+                      SizedBox(height: 2.2.h),
+                      _MenuCard(bottomNavController: bottomNavController),
+                      SizedBox(height: 1.4.h),
+                      const _ActionsCard(),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _AccountHeader extends StatelessWidget {
+  const _AccountHeader({required this.bottomNavController});
+
+  final BottomNavController bottomNavController;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 8.2.h,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 12.w,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 10.w, minHeight: 5.h),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(minWidth: 10.w, minHeight: 5.h),
+                  onPressed: () {
+                    final navigator = Get.nestedKey(
+                      bottomNavController.bottomNavNestedID,
+                    )
+                        ?.currentState;
+                    if (navigator?.canPop() ?? false) {
+                      Get.back(id: bottomNavController.bottomNavNestedID);
+                    } else {
+                      bottomNavController.onTabChange(0);
+                    }
                   },
-                  trailingIcon: 'assets/svgs/ic_forward.png',
-                  children: const [],
+                  icon: Icon(
+                    Icons.chevron_left_rounded,
+                    color: AccountScreen._green,
+                    size: 2.5.h,
+                  ),
                 ),
-                const AppDivider(),
-                _ExpandableAccountTile(
-                  title: 'Authorize User',
-                  iconURL: 'assets/svgs/ic_person_account.png',
-                  onTap: () {},
-                  trailingIcon: 'assets/svgs/ic_forward.png',
-                  children: [
-                    _TileChildWidgetBuilder(
-                      title: 'Create Authorize User',
-                      onTap: () {
-                        Get.toNamed(AppPages.addAuthorizeUser,
-                            id: controller.bottomNavNestedID);
-                      },
-                    ),
-                    _TileChildWidgetBuilder(
-                      title: 'Authorize Users',
-                      onTap: () {
-                        controller.onTabChange(1);
-                      },
-                    ),
-                  ],
-                ),
-                const AppDivider(),
-                _ExpandableAccountTile(
-                  title: 'My Account',
-                  iconURL: 'assets/svgs/ic_my_account.png',
-                  onTap: () {},
-                  trailingIcon: 'assets/svgs/ic_forward.png',
-                  children: [
-                    _TileChildWidgetBuilder(
-                      title: 'Add Pre-Alert',
-                      onTap: () {
-                        Get.toNamed(AppPages.addPreAlertScreen,
-                            id: controller.bottomNavNestedID);
-                      },
-                    ),
-                    _TileChildWidgetBuilder(
-                      title: 'Track Packages',
-                      onTap: () {
-                        Get.toNamed(AppPages.trackPackages,
-                            id: controller.bottomNavNestedID);
-                      },
-                    ),
-                    _TileChildWidgetBuilder(
-                      title: 'Invoices',
-                      onTap: () {
-                        Get.toNamed(AppPages.invoices,
-                            id: controller.bottomNavNestedID);
-                      },
-                    ),
-                    // _TileChildWidgetBuilder(
-                    //   title: 'Unpaid Invoices',
-                    //   onTap: () {
-                    //     Get.toNamed(AppPages.unpaidInvoicesScreen,
-                    //         id: controller.bottomNavNestedID);
-                    //   },
-                    // ),
-                  ],
-                ),
-                const AppDivider(),
-                _ExpandableAccountTile(
-                  title: 'Delivery System',
-                  iconURL: 'assets/svgs/ic_delivery_account.png',
-                  onTap: () {},
-                  trailingIcon: 'assets/svgs/ic_forward.png',
-                  children: [
-                    _TileChildWidgetBuilder(
-                      title: 'Request Delivery',
-                      onTap: () {
-                        controller.onTabChange(2);
-                      },
-                    ),
-                    // _TileChildWidgetBuilder(
-                    //   title: 'Delivery History',
-                    //   onTap: () {
-                    //     controller.onTabChange(1);
-                    //   },
-                    // ),
-                  ],
-                ),
-                const AppDivider(),
-                _ExpandableAccountTile(
-                  title: 'Purchase Request',
-                  iconURL: 'assets/svgs/ic_purchase_account.png',
-                  onTap: () {},
-                  trailingIcon: 'assets/svgs/ic_forward.png',
-                  children: [
-                    _TileChildWidgetBuilder(
-                      title: 'Create Purchase Request',
-                      onTap: () {
-                        Get.toNamed(AppPages.addPurchase,
-                            id: controller.bottomNavNestedID);
-                      },
-                    ),
-                    _TileChildWidgetBuilder(
-                      title: 'Purchase Requests',
-                      onTap: () {
-                        Get.toNamed(AppPages.purchase,
-                            id: controller.bottomNavNestedID);
-                        // controller.onTabChange(3);
-                      },
-                    ),
-                  ],
-                ),
-                // const AppDivider(),
-                // _AccountTile(
-                //   title: 'View Refferal Users',
-                //   iconURL: 'assets/svgs/ic_purchase_account.png',
-                //   onTap: () {
-                //     Get.toNamed(AppPages.refferalUsers,
-                //         id: controller.bottomNavNestedID);
-                //   },
-                //   trailingIcon: 'assets/svgs/ic_forward.png',
-                //   children: const [],
-                // ),
-                SizedBox(height: 2.h),
-                const _LogoutButton(),
-                SizedBox(height: 2.h),
-                const _DeleteButton(),
-              ],
+              ),
             ),
           ),
+          const Spacer(),
+          AppLogo(width: 20.5.w, height: 8.2.h),
+          const Spacer(),
+          SizedBox(width: 12.w),
         ],
       ),
     );
   }
 }
 
-class _TileChildWidgetBuilder extends StatelessWidget {
-  final String title;
-  final VoidCallback? onTap;
-  const _TileChildWidgetBuilder({
-    required this.title,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.only(top: 0.8.h, bottom: 0.8.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 18.5.w),
-            Text(
-              title,
-              textAlign: TextAlign.start,
-              style: context.textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFF181725),
-                fontSize: 9.5.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _LogoutButton extends StatelessWidget {
-  const _LogoutButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        final c = find<AccountController>();
-        c.onLogOut().then((value) {
-          final isDone = value.isDone;
-          final message = value.message;
-          if (isDone) {
-            Get.offAllNamed(AppPages.login);
-          } else {
-            if (message.isEmpty) return;
-            FlushSnackbar.showSnackBar(message);
-          }
-        });
-      },
-      child: Container(
-        width: 364,
-        alignment: Alignment.center,
-        height: 67,
-        margin: EdgeInsets.symmetric(horizontal: 3.w),
-        padding: EdgeInsets.symmetric(horizontal: 5.56.w),
-        decoration: ShapeDecoration(
-          color: const Color(0xFFF2F3F2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(19),
-          ),
-        ),
-        child: Row(
-          children: [
-            Image.asset('assets/svgs/ic_logout.png'),
-            const Spacer(),
-            Text(
-              'Log Out',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color(0xFF4791CE),
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const Spacer(),
-            SizedBox(width: 10.w),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AppDivider extends StatelessWidget {
-  const AppDivider({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Divider(
-      height: 0,
-      thickness: 1,
-      color: Color(0xffE2E2E2),
-    );
-  }
-}
-
-class _ExpandableAccountTile extends StatelessWidget {
-  final String title;
-  final List<Widget> children;
-  final String iconURL;
-  final String trailingIcon;
-  final VoidCallback onTap;
-  const _ExpandableAccountTile({
-    required this.title,
-    required this.children,
-    required this.iconURL,
-    required this.trailingIcon,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        unselectedWidgetColor: Colors.black,
-        colorScheme: const ColorScheme.light(primary: Colors.black),
-        dividerColor: Colors.transparent,
-      ),
-      child: GestureDetector(
-        onTap: () {
-          onTap.call();
-        },
-        child: ExpansionTile(
-          expandedAlignment: Alignment.centerLeft,
-          leading: Image.asset(
-            iconURL,
-            width: 5.5.w,
-            height: 5.5.h,
-            fit: BoxFit.contain,
-          ),
-          // trailing: children.isEmpty ? const SizedBox.shrink() : null,
-          title: Text(
-            title,
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF181725),
-              fontSize: 10.5.sp,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          children: [
-            ...children,
-            if (children.isNotEmpty) SizedBox(height: 2.h),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class UserProfileWidget extends StatelessWidget {
-  const UserProfileWidget({
-    super.key,
-  });
+class _ProfileHero extends StatelessWidget {
+  const _ProfileHero();
 
   @override
   Widget build(BuildContext context) {
     final controller = find<AccountController>();
-    return Obx(
-      () => Row(
-        children: [
-          SizedBox(width: 6.w),
-          CachedImage(
-            imageUrl: controller.user.value.image,
-            width: 7.h,
-            height: 7.h,
-            circular: true,
-          ),
-          SizedBox(width: 4.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return Obx(() {
+      final user = controller.user.value;
+      final name = user.completeName.trim().isNotEmpty
+          ? user.completeName.trim()
+          : user.userName.trim().isNotEmpty
+              ? user.userName.trim()
+              : 'User';
+      final email = user.email.trim().isNotEmpty ? user.email.trim() : '-';
+
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(17),
+          onTap: () => Get.toNamed(AppPages.updateProfile),
+          child: Container(
+            width: double.infinity,
+            clipBehavior: Clip.antiAlias,
+            padding: EdgeInsets.symmetric(horizontal: 4.2.w, vertical: 2.6.h),
+            decoration: BoxDecoration(
+              color: AccountScreen._green,
+              borderRadius: BorderRadius.circular(17),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x22000000),
+                  blurRadius: 22,
+                  offset: Offset(0, 10),
+                ),
+              ],
+            ),
+            child: CustomPaint(
+              painter: const _HeroWavePainter(),
+              child: Row(
                 children: [
-                  Text(
-                    controller.user.value.completeName,
-                    style: TextStyle(
-                      color: const Color(0xFF181725),
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
+                  _ProfileAvatar(imageUrl: user.image),
+                  SizedBox(width: 4.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15.2.sp,
+                                  fontWeight: FontWeight.w900,
+                                  height: 1.05,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 2.w),
+                            Icon(
+                              Icons.edit_outlined,
+                              color: AccountScreen._yellow,
+                              size: 2.8.h,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 0.6.h),
+                        Text(
+                          email,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10.8.sp,
+                            fontWeight: FontWeight.w600,
+                            height: 1.15,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(width: 2.w),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppPages.updateProfile);
-                    },
-                    child: SvgPicture.asset(
-                      'assets/svgs/ic_edit.svg',
-                      height: 1.8.h,
-                      width: 1.9.w,
-                    ),
-                  )
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    color: AccountScreen._yellow,
+                    size: 4.h,
+                  ),
                 ],
               ),
-              Text(
-                controller.user.value.email,
-                style: TextStyle(
-                  color: const Color(0xFF7C7C7C),
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              )
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+class _ProfileAvatar extends StatelessWidget {
+  const _ProfileAvatar({required this.imageUrl});
+
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    final fallback = Container(
+      decoration: const BoxDecoration(
+        color: AccountScreen._danger,
+        shape: BoxShape.circle,
+      ),
+      child: Icon(
+        Icons.priority_high_rounded,
+        color: Colors.white,
+        size: 5.4.h,
+      ),
+    );
+
+    return Container(
+      width: 8.6.h,
+      height: 8.6.h,
+      padding: const EdgeInsets.all(4),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+      ),
+      child: ClipOval(
+        child: imageUrl.trim().isEmpty
+            ? fallback
+            : CachedImage(
+                imageUrl: imageUrl,
+                width: 8.6.h,
+                height: 8.6.h,
+                fit: BoxFit.cover,
+                errorWidget: fallback,
+              ),
+      ),
+    );
+  }
+}
+
+class _MenuCard extends StatelessWidget {
+  const _MenuCard({required this.bottomNavController});
+
+  final BottomNavController bottomNavController;
+
+  @override
+  Widget build(BuildContext context) {
+    return _ShadowCard(
+      padding: EdgeInsets.all(1.3.w),
+      blurRadius: 18,
+      offset: const Offset(0, 8),
+      child: Column(
+        children: [
+          _NormalMenuTile(
+            title: 'Dashboard',
+            icon: Icons.home_outlined,
+            onTap: () => bottomNavController.onTabChange(0),
+          ),
+          const _CardDivider(),
+          _ExpandableMenuTile(
+            title: 'Authorize User',
+            icon: Icons.person_outline_rounded,
+            children: [
+              _MenuChildTile(
+                title: 'Create Authorize User',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.addAuthorizeUser,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
+              _MenuChildTile(
+                title: 'Authorize Users',
+                onTap: () => bottomNavController.onTabChange(1),
+              ),
+            ],
+          ),
+          const _CardDivider(),
+          _ExpandableMenuTile(
+            title: 'My Account',
+            icon: Icons.credit_card_outlined,
+            children: [
+              _MenuChildTile(
+                title: 'Add Pre-Alert',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.addPreAlertScreen,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
+              _MenuChildTile(
+                title: 'Track Packages',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.trackPackages,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
+              _MenuChildTile(
+                title: 'Invoices',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.invoices,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
+            ],
+          ),
+          const _CardDivider(),
+          _ExpandableMenuTile(
+            title: 'Delivery System',
+            icon: Icons.location_on_outlined,
+            iconColor: AccountScreen._yellow,
+            iconBackground: const Color(0xFFFFF5DF),
+            children: [
+              _MenuChildTile(
+                title: 'Request Delivery',
+                onTap: () => bottomNavController.onTabChange(2),
+              ),
+            ],
+          ),
+          const _CardDivider(),
+          _ExpandableMenuTile(
+            title: 'Purchase Request',
+            icon: Icons.shopping_cart_outlined,
+            children: [
+              _MenuChildTile(
+                title: 'Create Purchase Request',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.addPurchase,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
+              _MenuChildTile(
+                title: 'Purchase Requests',
+                onTap: () {
+                  Get.toNamed(
+                    AppPages.purchase,
+                    id: bottomNavController.bottomNavNestedID,
+                  );
+                },
+              ),
             ],
           ),
         ],
@@ -390,102 +371,417 @@ class UserProfileWidget extends StatelessWidget {
   }
 }
 
-class _DeleteButton extends StatelessWidget {
-  const _DeleteButton();
+class _ShadowCard extends StatelessWidget {
+  const _ShadowCard({
+    required this.child,
+    required this.padding,
+    required this.blurRadius,
+    required this.offset,
+  });
+
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final double blurRadius;
+  final Offset offset;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        final result =
-            await Get.dialog<bool>(const AccountDeleteConfirmationDialog());
-        if (!(result ?? false)) return;
-        final c = find<AccountController>();
-        await c.deleteAccount();
-      },
-      child: Container(
-        width: 364,
-        alignment: Alignment.center,
-        height: 67,
-        margin: EdgeInsets.symmetric(horizontal: 3.w),
-        padding: EdgeInsets.symmetric(horizontal: 5.56.w),
-        decoration: ShapeDecoration(
-          color: const Color(0xFFF2F3F2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+    return Container(
+      width: double.infinity,
+      padding: padding,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(17),
+        border: Border.all(color: AccountScreen._line),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0A1530).withOpacity(0.08),
+            blurRadius: blurRadius,
+            offset: offset,
           ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.delete,
-              color: Colors.red,
-              size: 3.h,
-            ),
-            const Spacer(),
-            Text(
-              'Delete Account',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+        ],
+      ),
+      child: child,
+    );
+  }
+}
+
+class _NormalMenuTile extends StatelessWidget {
+  const _NormalMenuTile({
+    required this.title,
+    required this.icon,
+    required this.onTap,
+    this.iconColor = AccountScreen._green,
+    this.iconBackground = const Color(0xFFEFF7F1),
+  });
+
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
+  final Color iconColor;
+  final Color iconBackground;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.75.h),
+          child: Row(
+            children: [
+              _MenuIconBox(
+                icon: icon,
+                color: iconColor,
+                background: iconBackground,
               ),
-            ),
-            const Spacer(),
-            SizedBox(width: 10.w),
-          ],
+              SizedBox(width: 4.w),
+              Expanded(child: _MenuTitle(title)),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: AccountScreen._darkGreen,
+                size: 3.h,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _AccountTile extends StatelessWidget {
-  final String title;
-  final List<Widget> children;
-  final String iconURL;
-  final String trailingIcon;
-  final VoidCallback onTap;
-
-  const _AccountTile({
+class _ExpandableMenuTile extends StatefulWidget {
+  const _ExpandableMenuTile({
     required this.title,
+    required this.icon,
     required this.children,
-    required this.iconURL,
-    required this.trailingIcon,
-    required this.onTap,
+    this.iconColor = AccountScreen._green,
+    this.iconBackground = const Color(0xFFEFF7F1),
   });
+
+  final String title;
+  final IconData icon;
+  final List<Widget> children;
+  final Color iconColor;
+  final Color iconBackground;
+
+  @override
+  State<_ExpandableMenuTile> createState() => _ExpandableMenuTileState();
+}
+
+class _ExpandableMenuTileState extends State<_ExpandableMenuTile> {
+  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        unselectedWidgetColor: Colors.black,
-        colorScheme: const ColorScheme.light(primary: Colors.black),
-        dividerColor: Colors.transparent,
-      ),
-      child: GestureDetector(
-        onTap: () {
-          onTap.call();
-        },
-        child: ListTile(
-          leading: Image.asset(
-            iconURL,
-            width: 5.5.w,
-            height: 5.5.h,
-            fit: BoxFit.contain,
-          ),
-          title: Text(
-            title,
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF181725),
-              fontSize: 10.5.sp,
-              fontWeight: FontWeight.w400,
+    return Column(
+      children: [
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () => setState(() => _expanded = !_expanded),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.75.h),
+              child: Row(
+                children: [
+                  _MenuIconBox(
+                    icon: widget.icon,
+                    color: widget.iconColor,
+                    background: widget.iconBackground,
+                  ),
+                  SizedBox(width: 4.w),
+                  Expanded(child: _MenuTitle(widget.title)),
+                  Icon(
+                    _expanded
+                        ? Icons.keyboard_arrow_up_rounded
+                        : Icons.keyboard_arrow_down_rounded,
+                    color: AccountScreen._darkGreen,
+                    size: 3.h,
+                  ),
+                ],
+              ),
             ),
           ),
-          trailing: children.isEmpty ? null : const Icon(Icons.arrow_forward),
+        ),
+        AnimatedCrossFade(
+          duration: 180.milliseconds,
+          crossFadeState:
+              _expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          firstChild: const SizedBox.shrink(),
+          secondChild: Padding(
+            padding: EdgeInsets.fromLTRB(17.w, 0, 4.w, 1.2.h),
+            child: Column(children: widget.children),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MenuChildTile extends StatelessWidget {
+  const _MenuChildTile({
+    required this.title,
+    required this.onTap,
+  });
+
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 0.9.h),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: AccountScreen._muted,
+                    fontSize: 9.4.sp,
+                    fontWeight: FontWeight.w700,
+                    height: 1.1,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: AccountScreen._darkGreen,
+                size: 2.3.h,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class _MenuIconBox extends StatelessWidget {
+  const _MenuIconBox({
+    required this.icon,
+    required this.color,
+    required this.background,
+  });
+
+  final IconData icon;
+  final Color color;
+  final Color background;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 5.7.h,
+      height: 5.7.h,
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(11),
+      ),
+      child: Icon(icon, color: color, size: 3.h),
+    );
+  }
+}
+
+class _MenuTitle extends StatelessWidget {
+  const _MenuTitle(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: AccountScreen._text,
+        fontSize: 11.2.sp,
+        fontWeight: FontWeight.w800,
+        height: 1.1,
+      ),
+    );
+  }
+}
+
+class _CardDivider extends StatelessWidget {
+  const _CardDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: AccountScreen._line,
+    );
+  }
+}
+
+class _ActionsCard extends StatelessWidget {
+  const _ActionsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _ShadowCard(
+      padding: EdgeInsets.all(1.3.w),
+      blurRadius: 18,
+      offset: const Offset(0, 8),
+      child: Column(
+        children: const [
+          _ActionTile(
+            title: 'Log Out',
+            subtitle: 'Securely log out from your account',
+            icon: Icons.logout_rounded,
+            color: AccountScreen._green,
+            background: Color(0xFFEFF7F1),
+            action: _AccountAction.logout,
+          ),
+          SizedBox(height: 0),
+          _ActionTile(
+            title: 'Delete Account',
+            subtitle: 'Permanently delete your account',
+            icon: Icons.delete_outline_rounded,
+            color: AccountScreen._danger,
+            background: Color(0xFFFFECEF),
+            action: _AccountAction.delete,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+enum _AccountAction { logout, delete }
+
+class _ActionTile extends StatelessWidget {
+  const _ActionTile({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+    required this.background,
+    required this.action,
+  });
+
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+  final Color background;
+  final _AccountAction action;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: background,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () => _handleAction(action),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.7.h),
+          child: Row(
+            children: [
+              _MenuIconBox(icon: icon, color: color, background: Colors.white),
+              SizedBox(width: 4.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 11.2.sp,
+                        fontWeight: FontWeight.w900,
+                        height: 1.05,
+                      ),
+                    ),
+                    SizedBox(height: 0.25.h),
+                    Text(
+                      subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AccountScreen._muted,
+                        fontSize: 9.2.sp,
+                        fontWeight: FontWeight.w600,
+                        height: 1.1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: AccountScreen._darkGreen,
+                size: 3.h,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _handleAction(_AccountAction action) async {
+    switch (action) {
+      case _AccountAction.logout:
+        final c = find<AccountController>();
+        final value = await c.onLogOut();
+        if (value.isDone) {
+          Get.offAllNamed(AppPages.login);
+        } else if (value.message.isNotEmpty) {
+          FlushSnackbar.showSnackBar(value.message);
+        }
+        break;
+      case _AccountAction.delete:
+        final result =
+            await Get.dialog<bool>(const AccountDeleteConfirmationDialog());
+        if (!(result ?? false)) return;
+        await find<AccountController>().deleteAccount();
+        break;
+    }
+  }
+}
+
+class _HeroWavePainter extends CustomPainter {
+  const _HeroWavePainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white.withOpacity(0.13)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.8;
+
+    for (var i = 0; i < 16; i++) {
+      final path = Path();
+      final y = size.height * (0.18 + i * 0.04);
+      path.moveTo(size.width * 0.45, y);
+      path.cubicTo(
+        size.width * 0.64,
+        y - 24,
+        size.width * 0.72,
+        y + 24,
+        size.width,
+        y - 4,
+      );
+      canvas.drawPath(path, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
