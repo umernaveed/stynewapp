@@ -18,7 +18,7 @@ class BottomNavScreen extends GetView<BottomNavController> {
       extendBody: true,
       wrapWithAnnotatedRegion: true,
       body: Container(
-        margin: EdgeInsets.only(bottom: 10.6.h),
+        margin: EdgeInsets.only(bottom: 10.h),
         child: Navigator(
           key: Get.nestedKey(controller.bottomNavNestedID),
           onGenerateRoute: (settings) {
@@ -43,123 +43,134 @@ class BottomNavScreen extends GetView<BottomNavController> {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 10.4.h,
-        margin: EdgeInsets.fromLTRB(3.w, 0, 3.w, 1.2.h),
-        padding: EdgeInsets.only(top: 0.35.h),
+        height: 9.8.h,
+        margin: EdgeInsets.fromLTRB(3.w, 0, 3.w, 1.1.h),
+        padding: EdgeInsets.only(top: 0.25.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(26),
+          border: Border.all(color: const Color(0xFFE4E8EA), width: 1),
           boxShadow: [
             BoxShadow(
               color: Colors.black38.withOpacity(0.08),
               spreadRadius: 0,
-              offset: const Offset(0, 6),
-              blurRadius: 18,
+              offset: const Offset(0, 10),
+              blurRadius: 24,
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(26),
           child: Obx(
             () => BottomNavigationBar(
               backgroundColor: Colors.white,
               elevation: 0,
               selectedItemColor: const Color(0xFF087C25),
               unselectedItemColor: const Color(0xFF090D1B),
+              selectedLabelStyle: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w400,
+              ),
               currentIndex: controller.currentIndex.value,
               onTap: controller.onTabChange,
               items: [
                 BottomNavigationBarItem(
                   activeIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: SvgPicture.asset(
                       'assets/svgs/ic_home.svg',
                       color: const Color(0xFF087C25),
-                      height: 3.h,
+                      height: 2.2.h,
                     ),
                   ),
                   icon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: SvgPicture.asset(
                       'assets/svgs/ic_home.svg',
                       color: const Color(0xFF090D1B),
-                      height: 3.h,
+                      height: 2.2.h,
                     ),
                   ),
                   label: 'Dashboard',
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.location_on_outlined,
                       color: const Color(0xFF087C25),
-                      size: 3.h,
+                      size: 2.45.h,
                     ),
                   ),
                   icon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.location_on_outlined,
                       color: const Color(0xFF090D1B),
-                      size: 3.h,
+                      size: 2.45.h,
                     ),
                   ),
                   label: 'Addresses',
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: SvgPicture.asset(
                       'assets/svgs/ic_delivery.svg',
                       color: const Color(0xFF087C25),
-                      height: 3.h,
+                      height: 2.55.h,
                     ),
                   ),
                   icon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: SvgPicture.asset(
                       'assets/svgs/ic_delivery.svg',
                       color: const Color(0xFF090D1B),
-                      height: 3.h,
+                      height: 2.55.h,
                     ),
                   ),
                   label: 'Delivery',
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.calendar_month_outlined,
                       color: const Color(0xFF087C25),
-                      size: 3.h,
+                      size: 2.55.h,
                     ),
                   ),
                   icon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.calendar_month_outlined,
                       color: const Color(0xFF090D1B),
-                      size: 3.h,
+                      size: 2.55.h,
                     ),
                   ),
                   label: 'News',
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.inventory_2_outlined,
                       color: const Color(0xFF087C25),
-                      size: 3.h,
+                      size: 2.55.h,
                     ),
                   ),
                   icon: Padding(
-                    padding: EdgeInsets.only(bottom: 0.5.h, top: 0.7.h),
+                    padding: EdgeInsets.only(top: 0.35.h, bottom: 0.25.h),
                     child: Icon(
                       Icons.inventory_2_outlined,
                       color: const Color(0xFF090D1B),
-                      size: 3.h,
+                      size: 2.55.h,
                     ),
                   ),
                   label: 'Packages',
