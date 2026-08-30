@@ -34,6 +34,10 @@ class InvoiceDetailResponse {
   final String subTotal;
   @JsonKey(name: 'grand_total', defaultValue: '')
   final String grandTotal;
+  @JsonKey(name: 'storage_fee_total', defaultValue: '0')
+  final String storageFeeTotal;
+  @JsonKey(name: 'storage_fee')
+  final StorageFee? storageFee;
   @JsonKey(name: 'site_email', defaultValue: '')
   final String siteEmail;
   @JsonKey(name: 'phone', defaultValue: '')
@@ -61,6 +65,8 @@ class InvoiceDetailResponse {
     required this.gstTotal,
     required this.subTotal,
     required this.grandTotal,
+    required this.storageFeeTotal,
+    required this.storageFee,
     required this.invoiceDetail,
     required this.siteEmail,
     required this.phone,
@@ -80,6 +86,8 @@ class InvoiceDetailResponse {
       email: '',
       gct: -1,
       grandTotal: '',
+      storageFeeTotal: '0',
+      storageFee: null,
       gstPersent: '',
       gstTotal: '',
       invoiceDetail: [],
@@ -97,6 +105,46 @@ class InvoiceDetailResponse {
   }
 
   Map<String, dynamic> toJson() => _$InvoiceDetailResponseToJson(this);
+}
+
+@JsonSerializable()
+class StorageFee {
+  @JsonKey(name: 'id', defaultValue: -1)
+  final int id;
+  @JsonKey(name: 'invoice_id', defaultValue: -1)
+  final int invoiceId;
+  @JsonKey(name: 'storage_start_date', defaultValue: '')
+  final String storageStartDate;
+  @JsonKey(name: 'last_calculated_date', defaultValue: '')
+  final String lastCalculatedDate;
+  @JsonKey(name: 'storage_days', defaultValue: 0)
+  final int storageDays;
+  @JsonKey(name: 'fee_amount', defaultValue: '0')
+  final dynamic feeAmount;
+  @JsonKey(name: 'undelivered_packages', defaultValue: 0)
+  final int undeliveredPackages;
+  @JsonKey(name: 'active', defaultValue: 0)
+  final dynamic active;
+  @JsonKey(name: 'included_in_payment', defaultValue: 0)
+  final dynamic includedInPayment;
+
+  const StorageFee({
+    required this.id,
+    required this.invoiceId,
+    required this.storageStartDate,
+    required this.lastCalculatedDate,
+    required this.storageDays,
+    required this.feeAmount,
+    required this.undeliveredPackages,
+    required this.active,
+    required this.includedInPayment,
+  });
+
+  factory StorageFee.fromJson(Map<String, dynamic> json) {
+    return _$StorageFeeFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$StorageFeeToJson(this);
 }
 
 @JsonSerializable()

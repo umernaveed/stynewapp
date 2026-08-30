@@ -33,7 +33,10 @@ class UnpaidInvoicesController extends GetxController
   }
 
   void onItemChecked(UnpaidInvoice item) {
-    final valid = item.totalInvoice?.replaceAll(',', '');
+    final valid = item.totalInvoice
+        ?.replaceAll(',', '')
+        .replaceAll('JMD', '')
+        .trim();
     final amount = num.tryParse(valid ?? '0') ?? 0;
     if (selectedItems.contains(item)) {
       selectedItems.remove(item);

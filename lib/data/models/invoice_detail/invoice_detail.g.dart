@@ -24,6 +24,10 @@ InvoiceDetailResponse _$InvoiceDetailResponseFromJson(
       gstTotal: json['gst_total'] as String? ?? '',
       subTotal: json['sub_total'] as String? ?? '',
       grandTotal: json['grand_total'] as String? ?? '',
+      storageFeeTotal: json['storage_fee_total']?.toString() ?? '0',
+      storageFee: json['storage_fee'] == null
+          ? null
+          : StorageFee.fromJson(json['storage_fee'] as Map<String, dynamic>),
       invoiceDetail: (json['invoice_detail'] as List<dynamic>?)
               ?.map((e) => InvoiceDetail.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -55,11 +59,39 @@ Map<String, dynamic> _$InvoiceDetailResponseToJson(
       'gst_total': instance.gstTotal,
       'sub_total': instance.subTotal,
       'grand_total': instance.grandTotal,
+      'storage_fee_total': instance.storageFeeTotal,
+      'storage_fee': instance.storageFee,
       'site_email': instance.siteEmail,
       'phone': instance.phone,
       'freight_type': instance.freightType,
       'invoice_detail': instance.invoiceDetail,
       'additional_fee': instance.additionalFee,
+    };
+
+StorageFee _$StorageFeeFromJson(Map<String, dynamic> json) => StorageFee(
+      id: (json['id'] as num?)?.toInt() ?? -1,
+      invoiceId: (json['invoice_id'] as num?)?.toInt() ?? -1,
+      storageStartDate: json['storage_start_date'] as String? ?? '',
+      lastCalculatedDate: json['last_calculated_date'] as String? ?? '',
+      storageDays: (json['storage_days'] as num?)?.toInt() ?? 0,
+      feeAmount: json['fee_amount'] ?? '0',
+      undeliveredPackages:
+          (json['undelivered_packages'] as num?)?.toInt() ?? 0,
+      active: json['active'] ?? 0,
+      includedInPayment: json['included_in_payment'] ?? 0,
+    );
+
+Map<String, dynamic> _$StorageFeeToJson(StorageFee instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'invoice_id': instance.invoiceId,
+      'storage_start_date': instance.storageStartDate,
+      'last_calculated_date': instance.lastCalculatedDate,
+      'storage_days': instance.storageDays,
+      'fee_amount': instance.feeAmount,
+      'undelivered_packages': instance.undeliveredPackages,
+      'active': instance.active,
+      'included_in_payment': instance.includedInPayment,
     };
 
 InvoiceDetail _$InvoiceDetailFromJson(Map<String, dynamic> json) =>

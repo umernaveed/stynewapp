@@ -64,6 +64,10 @@ class InvoiceDetails extends GetView<InvoiceDetailController> {
                           _InfoCards(data: state),
                           SizedBox(height: 1.8.h),
                           _ChargesBreakdown(data: state),
+                          if (_amountValue(state.storageFeeTotal) > 0) ...[
+                            SizedBox(height: 1.8.h),
+                            _StorageFeeCard(data: state),
+                          ],
                           SizedBox(height: 1.8.h),
                           _PaymentAndTimeline(data: state),
                           SizedBox(height: 1.5.h),
@@ -469,6 +473,8 @@ class _ChargesBreakdown extends StatelessWidget {
           _ChargeLine('Custom Fee', _money(detail?.customFee ?? '0')),
           _ChargeLine('GCT', _money(data.gstTotal.isEmpty ? '0' : data.gstTotal)),
           ...fees.map((fee) => _ChargeLine(fee.name, _money(fee.serviceFee))),
+          if (_amountValue(data.storageFeeTotal) > 0)
+            _ChargeLine('Storage Fee', _money(data.storageFeeTotal)),
           if (data.discountPrice.trim().isNotEmpty)
             _ChargeLine('Discount', _money(data.discountPrice)),
           SizedBox(height: 1.2.h),
@@ -501,6 +507,50 @@ class _ChargesBreakdown extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StorageFeeCard extends StatelessWidget {
+  const _StorageFeeCard({required this.data});
+
+  final InvoiceDetailResponse data;
+
+  @override
+  Widget build(BuildContext context) {
+    final storageFee = data.storageFee;
+    return _WhiteCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const _SmallHeaderIcon(icon: Icons.warehouse_outlined),
+              SizedBox(width: 2.w),
+              Expanded(child: _SectionTitle('Storage Fee')),
+              Text(
+                _money(data.storageFeeTotal),
+                style: TextStyle(
+                  color: InvoiceDetails._green,
+                  fontSize: 9.8.sp,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
+          ),
+          if (storageFee != null) ...[
+            SizedBox(height: 1.4.h),
+            _KeyValueLine('Storage Days', storageFee.storageDays.toString()),
+            _KeyValueLine('Undelivered Packages',
+                storageFee.undeliveredPackages.toString()),
+            _KeyValueLine('Start Date', _date(storageFee.storageStartDate)),
+            _KeyValueLine(
+              'Calculated On',
+              _date(storageFee.lastCalculatedDate),
+            ),
+          ],
         ],
       ),
     );
@@ -1102,6 +1152,12 @@ String _money(dynamic value) {
   final text = value?.toString().trim() ?? '';
   if (text.isEmpty) return '-';
   return text.toUpperCase().contains('JMD') ? text : 'JMD $text';
+}
+
+double _amountValue(dynamic value) {
+  final text =
+      value?.toString().replaceAll(',', '').replaceAll('JMD', '').trim() ?? '';
+  return double.tryParse(text) ?? 0;
 }
 
 TextStyle _bodyStyle(BuildContext context) {
