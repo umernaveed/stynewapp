@@ -71,10 +71,10 @@ class DeliveryScreen extends GetView<DeliveryController> {
                       animateTransitions: true,
                       transitionDuration: 400.milliseconds,
                       firstPageProgressIndicatorBuilder: (_) {
-                        return ShimmerListView();
+                        return const _DeliveryShimmerList();
                       },
                       newPageProgressIndicatorBuilder: (_) {
-                        return ShimmerListView();
+                        return const _DeliveryShimmerList();
                       },
                       noItemsFoundIndicatorBuilder: (_) {
                         return const _StateMessage('No delivery packages found');
@@ -668,6 +668,27 @@ class _StateMessage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DeliveryShimmerList extends StatelessWidget {
+  const _DeliveryShimmerList();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return ShimmerWidget(
+          radius: BorderRadius.circular(22),
+          child: SizedBox(width: context.width, height: 33.h),
+        );
+      },
+      separatorBuilder: (context, index) => SizedBox(height: 1.5.h),
     );
   }
 }
