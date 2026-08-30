@@ -62,6 +62,32 @@ class LocalDataSourceImp implements LocalDataSource {
   Future<void> loggedIN({bool isLoggedIn = true}) async {
     await _localClient.appBox.put('is_logged_in', isLoggedIn);
   }
+
+  @override
+  Future<String> getAppliedCacheClearVersion() async {
+    final r =
+        _localClient.appBox.get('cache_clear_version', defaultValue: '');
+    return r?.toString() ?? '';
+  }
+
+  @override
+  Future<void> saveAppliedCacheClearVersion(String version) async {
+    await _localClient.appBox.put('cache_clear_version', version);
+  }
+
+  @override
+  Future<void> clearCustomerCache() async {
+    final user = _localClient.appBox.get('user');
+    final isLoggedIn =
+        _localClient.appBox.get('is_logged_in', defaultValue: false);
+
+    await _localClient.clearBox();
+
+    if (user != null) {
+      await _localClient.appBox.put('user', user);
+    }
+    await _localClient.appBox.put('is_logged_in', isLoggedIn);
+  }
 }
 
 abstract class LocalClient {

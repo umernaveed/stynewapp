@@ -1,3 +1,5 @@
+import 'package:flutter/painting.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:straight_to_yard/app/core/routes/app_pages.dart';
 import 'package:straight_to_yard/data/models/app_meta/app_meta.dart';
@@ -40,6 +42,7 @@ class OnBoardingController extends GetxController {
       final data = result.data;
       isLoading.value = false;
       meta.value = data;
+      await _applyRemoteCacheClear(data.setting?.cacheClearVersion);
 
       // await takeStepOnBaseOfSession();
     } catch (e) {
@@ -57,5 +60,20 @@ class OnBoardingController extends GetxController {
         Get.offAllNamed(AppPages.login);
       }
     } catch (_) {}
+  }
+
+  Future<void> _applyRemoteCacheClear(String? version) async {
+    final remoteVersion = version?.trim() ?? '';
+    if (remoteVersion.isEmpty) return;
+
+    final appliedVersion =
+        await _localRepository.getAppliedCacheClearVersion();
+    if (appliedVersion == remoteVersion) return;
+
+    await _localRepository.clearCustomerCache();
+    PaintingBinding.instance.imageCache.clear();
+    PaintingBinding.instance.imageCache.clearLiveImages();
+    await DefaultCacheManager().emptyCache();
+    await _localRepository.saveAppliedCacheClearVersion(remoteVersion);
   }
 }

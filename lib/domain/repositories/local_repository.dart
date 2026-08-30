@@ -9,4 +9,7 @@ abstract class LocalRepository {
   Future<void> loggedIN({bool isLoggedIn = true});
   Future<bool> isLoggedIn();
   User getInstantUser();
+  Future<String> getAppliedCacheClearVersion();
+  Future<void> saveAppliedCacheClearVersion(String version);
+  Future<void> clearCustomerCache();
 }
