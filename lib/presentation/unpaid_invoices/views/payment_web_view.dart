@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:straight_to_yard/app/core/assets/drawables.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 
 class PaymentWebView extends StatefulWidget {
@@ -28,7 +26,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return BaseScreen(
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       body: Stack(
         children: [
           InAppWebView(
@@ -49,19 +47,30 @@ class _PaymentWebViewState extends State<PaymentWebView> {
             },
           ),
           Positioned(
-            top: 60,
-            left: 11,
+            top: 56,
+            left: 16,
             child: Container(
               alignment: Alignment.center,
+              width: 48,
+              height: 48,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.white,
                 shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFFE4E8EA)),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x18000000),
+                    blurRadius: 18,
+                    offset: Offset(0, 8),
+                  ),
+                ],
               ),
               child: Center(
                 child: IconButton(
-                  icon: SvgPicture.asset(
-                    Drawables.icBack,
-                    height: 18,
+                  icon: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: Color(0xFF087C25),
+                    size: 34,
                   ),
                   onPressed: () {
                     Get.back(result: -1);

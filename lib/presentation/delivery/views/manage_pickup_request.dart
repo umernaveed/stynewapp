@@ -8,6 +8,7 @@ import 'package:straight_to_yard/app/core/get_di.dart';
 import 'package:straight_to_yard/data/models/manage_pick_up_request_meta/area.dart';
 import 'package:straight_to_yard/data/models/manage_pick_up_request_meta/day.dart';
 import 'package:straight_to_yard/presentation/auth/views/login_screen.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/drop_down.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
@@ -20,27 +21,9 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
   Widget build(BuildContext context) {
     final instantUser = controller.getInstantUser();
     return BaseScreen(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: BackButton(
-          color: Colors.black,
-          onPressed: () {
-            final bottomNavNestedID =
-                find<BottomNavController>().bottomNavNestedID;
-            Get.back(id: bottomNavNestedID);
-          },
-        ),
-        centerTitle: false,
-        title: Text(
-          'Manage Delivery Request',
-          style: context.textTheme.bodyLarge?.copyWith(
-            color: const Color(0xFF4791CE),
-            fontSize: 16.sp,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+      backgroundColor: const Color(0xFFF8FBFF),
+      appBar: AuthCustomAppBar.withSmallAppLogo(
+        backID: find<BottomNavController>().bottomNavNestedID,
       ),
       value: SystemUiOverlayStyle.dark,
       body: SingleChildScrollView(
@@ -48,15 +31,42 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
           clearValueOnUnregister: true,
           key: controller.formKey,
           child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Container(
+              margin: EdgeInsets.only(
+                left: 4.2.w,
+                right: 4.2.w,
+                top: 1.4.h,
+                bottom: 2.h,
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.2.h),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(17),
+                border: Border.all(color: const Color(0xFFE4E8EA)),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x10000000),
+                    blurRadius: 18,
+                    offset: Offset(0, 8),
+                  ),
+                ],
+              ),
               child: GetBuilder<ManagePickUpRequestController>(
                 id: 'manage_pickup_request',
                 builder: (_) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 3.5.h),
+                      Text(
+                        'Manage Delivery Request',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: const Color(0xFF090D1B),
+                          fontSize: 11.8.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
                       _FieldWithLable(
                         name: 'name',
                         hint: 'Johan Doe',
@@ -66,7 +76,7 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       _FieldWithLable(
                         name: 'contact',
                         lable: 'Contact',
@@ -76,43 +86,33 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       CustomDropDown<Day>(
                         name: 'select_day',
                         spaceBTW: 10,
                         title: 'Select Day',
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
-                          ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE4E8EA)),
                         ),
                         disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
-                          ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE4E8EA)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF087C25),
+                            width: 1.2,
                           ),
                         ),
                         onItemSelected: (e) {},
                         hint: 'Monday',
                         items: controller.days,
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       CustomDropDown<Area>(
                         name: 'select_area',
                         title: 'Select Area',
@@ -124,35 +124,25 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                         hint: 'CITY CENTER',
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
-                          ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE4E8EA)),
                         ),
                         disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
-                          ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE4E8EA)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            width: 0.5,
-                            color: Colors.grey.withOpacity(
-                              0.6,
-                            ),
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF087C25),
+                            width: 1.2,
                           ),
                         ),
                         items: controller.areas,
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       _FieldWithLable(
                         name: 'delivery_coast',
                         lable: 'Delivery Coast',
@@ -163,7 +153,7 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       _FieldWithLable(
                         name: 'address',
                         lable: 'Address',
@@ -173,7 +163,7 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 1.8.h),
                       _FieldWithLable(
                         name: 'notes',
                         lable: 'Notes',
@@ -183,21 +173,21 @@ class ManagePickupRequest extends GetView<ManagePickUpRequestController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 2.5.h),
+                      SizedBox(height: 2.6.h),
                       AppButton(
                         title: 'Schedule Delivery',
                         buttonBorderRadius: 10,
-                        backgroundColor: Colors.pinkAccent,
+                        backgroundColor: const Color(0xFF087C25),
                         onTap: () => controller.onSchedule(),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.2.h),
                       AppButton(
                         title: 'Cancel',
                         buttonBorderRadius: 10,
                         backgroundColor: Colors.transparent,
-                        textColor: Colors.black,
+                        textColor: const Color(0xFF087C25),
                         side: const BorderSide(
-                          color: Colors.black,
+                          color: Color(0xFFD8E9DD),
                           width: 0.5,
                         ),
                         onTap: () => Get.back(),
@@ -246,11 +236,11 @@ class _FieldWithLable extends StatelessWidget {
           lable,
           style: TextStyle(
             color: const Color(0xFF7C7C7C),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.2.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 0.65.h),
         FormBuilderTextField(
           name: name,
           maxLines: maxLines,
@@ -260,40 +250,32 @@ class _FieldWithLable extends StatelessWidget {
           decoration: inputDecoration ??
               InputDecoration(
                 isDense: true,
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 3.4.w,
+                  vertical: 1.65.h,
+                ),
                 hintText: hint,
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey.withOpacity(
-                      0.6,
-                    ),
-                  ),
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
                 ),
                 disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey.withOpacity(
-                      0.6,
-                    ),
-                  ),
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey.withOpacity(
-                      0.6,
-                    ),
-                  ),
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide:
+                      const BorderSide(color: Color(0xFF087C25), width: 1.2),
                 ),
               ),
           validator: validator,
           style: const TextStyle(
-            color: Color(0xFF181725),
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
+            color: Color(0xFF090D1B),
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

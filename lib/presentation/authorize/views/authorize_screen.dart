@@ -23,39 +23,37 @@ class AuthorizeScreen extends GetView<AuthorizeController> {
     return BaseScreen(
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: AuthCustomAppBar.withSmallAppLogo(
         backID: find<BottomNavController>().bottomNavNestedID,
       ),
       body: Container(
         width: context.width,
-        margin: EdgeInsets.only(left: 6.w, right: 6.w, top: 5.h, bottom: 2.h),
-        decoration: const BoxDecoration(
+        margin: EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 2.h, bottom: 2.h),
+        decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(3),
-          ),
-          boxShadow: [
+          borderRadius: BorderRadius.circular(17),
+          border: Border.all(color: const Color(0xFFE4E8EA)),
+          boxShadow: const [
             BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 4,
-              offset: Offset(0, 3),
-              spreadRadius: 1.8,
+              color: Color(0x10000000),
+              blurRadius: 18,
+              offset: Offset(0, 8),
             )
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+          padding: EdgeInsets.symmetric(horizontal: 3.2.w, vertical: 2.2.h),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const AddNew(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               const SearchField(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               const AppDivider(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () => Future.sync(
@@ -73,7 +71,7 @@ class AuthorizeScreen extends GetView<AuthorizeController> {
                           _AuthorizeItemWidget(item),
                     ),
                     separatorBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                      padding: EdgeInsets.symmetric(vertical: 1.35.h),
                       child: const AppDivider(),
                     ),
                   ),
@@ -101,8 +99,9 @@ class AddNew extends StatelessWidget {
         height: 42,
         alignment: Alignment.center,
         decoration: ShapeDecoration(
-          color: const Color(0xFF4791CE),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          color: const Color(0xFF087C25),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -225,7 +224,7 @@ class ActionButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
-    this.color = const Color(0xFF4791CE),
+    this.color = const Color(0xFF087C25),
     this.width = 57.76,
     this.height = 25.80,
   });
@@ -241,7 +240,7 @@ class ActionButton extends StatelessWidget {
         decoration: ShapeDecoration(
           color: color,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         child: Text(

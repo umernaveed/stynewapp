@@ -19,7 +19,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
   Widget build(BuildContext context) {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       value: SystemUiOverlayStyle.dark,
       appBar: const AuthCustomAppBar.withSmallAppLogo(
         backButtonVisible: true,
@@ -29,18 +29,17 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
         physics: const ClampingScrollPhysics(),
         child: Container(
           width: context.width,
-          margin: EdgeInsets.only(left: 6.w, right: 6.w, top: 1.h, bottom: 2.h),
-          decoration: const BoxDecoration(
+          margin:
+              EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 2.h, bottom: 2.h),
+          decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(3),
-            ),
-            boxShadow: [
+            borderRadius: BorderRadius.circular(17),
+            border: Border.all(color: const Color(0xFFE4E8EA)),
+            boxShadow: const [
               BoxShadow(
-                color: Color(0x19000000),
-                blurRadius: 4,
-                offset: Offset(0, 3),
-                spreadRadius: 2,
+                color: Color(0x10000000),
+                blurRadius: 18,
+                offset: Offset(0, 8),
               )
             ],
           ),
@@ -49,20 +48,20 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: 3.w, right: 5.w, top: 3.h, bottom: 2.h),
+                    left: 4.w, right: 4.w, top: 2.2.h, bottom: 1.7.h),
                 child: Text(
                   'Add Pre-Alert',
                   style: TextStyle(
-                    color: const Color(0xFF4791CE),
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF090D1B),
+                    fontSize: 11.8.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
               ),
               const AppDivider(),
               // const AccountHolderInfo(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.2.h),
                 child: FormBuilder(
                   key: controller.formKey,
                   clearValueOnUnregister: true,
@@ -77,7 +76,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Merchant',
                         hint: 'Merchant',
@@ -86,7 +85,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Carrier',
                         hint: 'Carrier',
@@ -95,7 +94,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Carrier tracking number',
                         hint: 'Carrier tracking number',
@@ -109,7 +108,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Weight',
                         hint: 'Weight',
@@ -123,7 +122,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Value (US \$)',
                         hint: 'Value (US \$)',
@@ -137,7 +136,7 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Description',
                         hint: 'Description',
@@ -156,13 +155,13 @@ class AddPreAlertScreen extends GetView<AddPreAlertController> {
                         'Attach an invoice',
                         style: TextStyle(
                           color: const Color(0xFF7C7C7C),
-                          fontSize: 10.6.sp,
-                          fontWeight: FontWeight.w400,
+                          fontSize: 9.2.sp,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.h),
                       const FilePickerWidget(),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.2.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -226,13 +225,10 @@ class FilePickerWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 1.h),
             width: context.width,
             decoration: ShapeDecoration(
-              color: const Color(0xFFEFEFEF),
+              color: const Color(0xFFF8FBFF),
               shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: Colors.black.withOpacity(0.30000001192092896),
-                ),
-                borderRadius: BorderRadius.circular(3),
+                side: const BorderSide(color: Color(0xFFE4E8EA)),
+                borderRadius: BorderRadius.circular(13),
               ),
             ),
             child: controller.pickedFile.value.path.isEmpty
@@ -242,9 +238,9 @@ class FilePickerWidget extends StatelessWidget {
                       'No file choosen',
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 10.5.sp,
-                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF757987),
+                        fontSize: 9.4.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   )
@@ -261,9 +257,9 @@ class FilePickerWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10.5.sp,
-                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF090D1B),
+                              fontSize: 9.4.sp,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
@@ -295,25 +291,22 @@ class FilePickerWidget extends StatelessWidget {
               },
               child: Container(
                 width: 131,
-                height: 35,
+                height: 4.6.h,
                 alignment: Alignment.center,
                 decoration: ShapeDecoration(
-                  color: const Color(0xFFEFEFEF),
+                  color: const Color(0xFFEAF5ED),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: Colors.black.withOpacity(0.30000001192092896),
-                    ),
-                    borderRadius: BorderRadius.circular(3),
+                    side: const BorderSide(color: Color(0xFFD8E9DD)),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: Text(
                   'Choose File',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 10.5.sp,
-                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF087C25),
+                    fontSize: 9.6.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
               ),

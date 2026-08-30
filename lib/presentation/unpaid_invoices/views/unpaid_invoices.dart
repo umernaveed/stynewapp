@@ -24,7 +24,7 @@ class UnpaidInvoicesScreen extends GetView<UnpaidInvoicesController> {
     return BaseScreen(
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar.withSmallAppLogo(
         backButtonVisible: true,
         usingNavigator: true,
@@ -32,30 +32,28 @@ class UnpaidInvoicesScreen extends GetView<UnpaidInvoicesController> {
       body: Container(
         width: context.width,
         margin:
-            EdgeInsets.only(left: 4.5.w, right: 4.5.w, top: 1.h, bottom: 2.h),
-        decoration: const BoxDecoration(
+            EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 1.4.h, bottom: 2.h),
+        decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(3),
-          ),
-          boxShadow: [
+          borderRadius: BorderRadius.circular(17),
+          border: Border.all(color: const Color(0xFFE4E8EA)),
+          boxShadow: const [
             BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 4,
-              offset: Offset(0, 3),
-              spreadRadius: 1.8,
+              color: Color(0x10000000),
+              blurRadius: 18,
+              offset: Offset(0, 8),
             )
           ],
         ),
         child: Padding(
           padding:
-              EdgeInsets.only(left: 5.w, right: 5.w, top: 3.h, bottom: 1.4.h),
+              EdgeInsets.only(left: 3.2.w, right: 3.2.w, top: 2.2.h, bottom: 1.9.h),
           child: Column(
             children: [
               const SearchField(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               const AppDivider(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () => Future.sync(
@@ -84,11 +82,11 @@ class UnpaidInvoicesScreen extends GetView<UnpaidInvoicesController> {
                           },
                         ),
                         separatorBuilder: (context, index) => Padding(
-                          padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                          padding: EdgeInsets.symmetric(vertical: 1.35.h),
                           child: Column(
                             children: [
                               const AppDivider(),
-                              SizedBox(height: 2.h),
+                              SizedBox(height: 1.35.h),
                               const AppDivider(),
                             ],
                           ),
@@ -98,13 +96,13 @@ class UnpaidInvoicesScreen extends GetView<UnpaidInvoicesController> {
                   ),
                 ),
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               const AppDivider(),
               const _NoOfPackages(),
               const AppDivider(),
               const _TotalAmount(),
               const AppDivider(),
-              SizedBox(height: 1.h),
+              SizedBox(height: 1.2.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -115,12 +113,12 @@ class UnpaidInvoicesScreen extends GetView<UnpaidInvoicesController> {
                       backgroundColor: Colors.white,
                       side: BorderSide(
                         width: 1,
-                        color: Colors.black.withOpacity(0.30000001192092896),
+                        color: const Color(0xFFD8E9DD),
                       ),
-                      textColor: const Color(0xFF7C7C7C),
+                      textColor: const Color(0xFF087C25),
                     ),
                   ),
-                  SizedBox(width: 6.2.w),
+                  SizedBox(width: 3.w),
                   Expanded(
                     flex: 2,
                     child: Obx(
@@ -185,7 +183,7 @@ class _UnpaidItem extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 1.5.h),
+        SizedBox(height: 1.25.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -207,8 +205,7 @@ class _UnpaidItem extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 1.5.h),
-        SizedBox(height: 1.3.h),
+        SizedBox(height: 1.2.h),
         ActionButton(
           title: 'Invoice Detail',
           width: context.width,
@@ -223,7 +220,7 @@ class _UnpaidItem extends StatelessWidget {
             );
           },
         ),
-        SizedBox(height: 1.3.h),
+        SizedBox(height: 1.2.h),
       ],
     );
   }
@@ -244,9 +241,9 @@ class _TotalAmount extends StatelessWidget {
             child: Text(
               'Total Amount Due',
               style: TextStyle(
-                color: Colors.black,
+                color: Color(0xFF090D1B),
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -255,9 +252,9 @@ class _TotalAmount extends StatelessWidget {
               () => Text(
                 controller.totalAmount.toString(),
                 style: const TextStyle(
-                  color: Color(0xFF7C7C7C),
+                  color: Color(0xFF087C25),
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -283,9 +280,9 @@ class _NoOfPackages extends StatelessWidget {
             child: Text(
               'Total Invoices',
               style: TextStyle(
-                color: Colors.black,
+                color: Color(0xFF090D1B),
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -294,9 +291,9 @@ class _NoOfPackages extends StatelessWidget {
               () => Text(
                 controller.selectedItems.length.toString(),
                 style: const TextStyle(
-                  color: Color(0xFF7C7C7C),
+                  color: Color(0xFF087C25),
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -336,7 +333,7 @@ class _TrackPackagesItemKeyValueBuilder extends StatelessWidget {
           title,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
-            color: Colors.black,
+            color: const Color(0xFF090D1B),
             fontSize: 9.sp,
             fontWeight: FontWeight.w600,
             overflow: TextOverflow.ellipsis,
@@ -349,7 +346,7 @@ class _TrackPackagesItemKeyValueBuilder extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
+                color: const Color(0xFF087C25),
                 fontSize: 9.sp,
                 fontWeight: FontWeight.w400,
                 overflow: TextOverflow.ellipsis,
@@ -388,10 +385,10 @@ class _CheckBoxTitle extends StatelessWidget {
                     isChecked = e;
                   });
                 },
-                activeColor: Colors.black,
+                activeColor: const Color(0xFF087C25),
                 tristate: false,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 visualDensity: const VisualDensity(
                   horizontal: -4,

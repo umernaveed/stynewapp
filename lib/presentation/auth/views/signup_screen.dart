@@ -21,11 +21,12 @@ class SignUpScreen extends GetView<SignUpController> {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar(),
       body: CustomScrollView(
         slivers: [
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 7.w),
+            padding: EdgeInsets.symmetric(horizontal: 4.2.w),
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
@@ -40,10 +41,10 @@ class SignUpScreen extends GetView<SignUpController> {
                         Text(
                           'Sign Up',
                           style: context.textTheme.bodyLarge?.copyWith(
-                            color: const Color(0xFF4791CE),
-                            fontSize: 26,
+                            color: const Color(0xFF090D1B),
+                            fontSize: 15.2.sp,
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                         SizedBox(height: .5.h),
@@ -51,8 +52,8 @@ class SignUpScreen extends GetView<SignUpController> {
                           'Enter your credentials to continue',
                           style: context.textTheme.bodyMedium?.copyWith(
                             color: const Color(0xFF7C7C7C),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 10.2.sp,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         SizedBox(height: 3.5.h),
@@ -428,8 +429,8 @@ class AppDatePicker extends StatelessWidget {
           title,
           style: TextStyle(
             color: const Color(0xFF7C7C7C),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.2.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
         FormBuilderDateTimePicker(
@@ -441,18 +442,18 @@ class AppDatePicker extends StatelessWidget {
           onChanged: (e) {},
           style: context.textTheme.bodyMedium?.copyWith(
             color: Colors.black,
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 10.6.sp,
+            fontWeight: FontWeight.w600,
           ),
           decoration: InputDecoration(
             suffixIcon: const Icon(
               Icons.calendar_today,
-              color: Color(0xFF4791CE),
+              color: Color(0xFF087C25),
             ),
             hintText: hint,
             hintStyle: context.textTheme.bodyMedium?.copyWith(
-              color: const Color(0x337C7C7C),
-              fontSize: 11.sp,
+              color: const Color(0xFF8A8E99),
+              fontSize: 10.2.sp,
               fontWeight: FontWeight.w400,
             ),
           ),

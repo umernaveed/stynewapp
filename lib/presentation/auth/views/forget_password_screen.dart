@@ -18,10 +18,11 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
       resizeToAvoidBottomInset: false,
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.2.w),
           child: FormBuilder(
             key: controller.formKey,
             child: Column(
@@ -31,9 +32,9 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                 Text(
                   'Forget password',
                   style: context.textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF4791CE),
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF090D1B),
+                    fontSize: 15.2.sp,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 SizedBox(height: 3.h),
@@ -41,8 +42,8 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                   'Email',
                   style: TextStyle(
                     color: const Color(0xFF7C7C7C).withOpacity(0.7),
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 9.2.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 FormBuilderTextField(
@@ -58,8 +59,8 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                   ),
                   style: const TextStyle(
                     color: Color(0xFF181725),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10.6.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 4.5.h),

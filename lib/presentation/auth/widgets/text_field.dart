@@ -71,10 +71,33 @@ class AppTextField extends StatelessWidget {
       obscuringCharacter: '●',
       onChanged: onChange,
       decoration: InputDecoration(
-        isDense: false,
-        border: type.isParagraph ? InputBorder.none : null,
+        isDense: true,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 3.4.w,
+          vertical: type.isParagraph ? 1.5.h : 1.65.h,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: const BorderSide(color: Color(0xFF087C25), width: 1.2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: const BorderSide(color: Color(0xFFE94B4E)),
+        ),
         hintStyle: context.theme.inputDecorationTheme.hintStyle?.copyWith(
-          color: hintColor,
+          color: hintColor ?? const Color(0xFF8A8E99),
+          fontSize: 10.2.sp,
+          fontWeight: FontWeight.w400,
         ),
         hintText: type.isPassword ? '●●●●●●●' : hint,
         suffixIcon: type.isPassword
@@ -87,10 +110,10 @@ class AppTextField extends StatelessWidget {
             : const SizedBox.shrink(),
       ),
       style: TextStyle(
-        color: const Color(0xFF181725),
-        fontSize: 18,
+        color: const Color(0xFF090D1B),
+        fontSize: 10.6.sp,
         letterSpacing: type.isPassword ? 3 : 0,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
       ),
     );
 
@@ -101,10 +124,11 @@ class AppTextField extends StatelessWidget {
           title,
           style: TextStyle(
             color: titleColor ?? const Color(0xFF7C7C7C),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.2.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
+        SizedBox(height: 0.65.h),
         if (type.isParagraph) ...[
           Expanded(child: field),
         ] else ...[
@@ -122,21 +146,31 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: context.width,
-      height: 6.h,
+      height: 7.2.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE4E8EA)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0D000000),
+            blurRadius: 18,
+            offset: Offset(0, 8),
+          ),
+        ],
+      ),
       child: TextFormField(
         onTapOutside: (event) => FocusScope.of(context).unfocus(),
         controller: controller,
         decoration: InputDecoration(
-          isDense: true,
-          prefixIcon: IconButton(
-            icon: Icon(
-              Icons.search,
-              color: const Color(0x993C3C43),
-              size: 2.5.h,
-            ),
-            onPressed: () {},
+          isDense: false,
+          contentPadding: EdgeInsets.symmetric(vertical: 1.65.h),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            color: const Color(0xFF087C25),
+            size: 3.4.h,
           ),
           // suffixIcon: IconButton(
           //   icon: Icon(
@@ -146,43 +180,21 @@ class SearchField extends StatelessWidget {
           //   ),
           //   onPressed: () {},
           // ),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(
-              width: 1,
-              color: Color(0xFFD9D9D9),
-            ),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              width: 1,
-              color: Color(0xFFD9D9D9),
-            ),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.red,
-            ),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              width: 2,
-              color: Colors.blue,
-            ),
-            borderRadius: BorderRadius.circular(3),
-          ),
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
           hintStyle: context.theme.inputDecorationTheme.hintStyle?.copyWith(
-            color: const Color(0x993C3C43),
+            color: const Color(0xFF757987),
+            fontSize: 10.2.sp,
+            fontWeight: FontWeight.w400,
           ),
           hintText: hint,
         ),
         style: TextStyle(
-          color: const Color(0xFF181725),
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
+          color: const Color(0xFF090D1B),
+          fontSize: 10.2.sp,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

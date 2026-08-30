@@ -26,7 +26,7 @@ class AddPurchase extends GetView<AddPurchaseController> {
     final item = isEditing ? args as Purchase : Purchase.empty();
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       value: SystemUiOverlayStyle.dark,
       appBar: const AuthCustomAppBar.withSmallAppLogo(
         backButtonVisible: true,
@@ -36,18 +36,17 @@ class AddPurchase extends GetView<AddPurchaseController> {
         physics: const ClampingScrollPhysics(),
         child: Container(
           width: context.width,
-          margin: EdgeInsets.only(left: 6.w, right: 6.w, top: 1.h, bottom: 2.h),
-          decoration: const BoxDecoration(
+          margin:
+              EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 2.h, bottom: 2.h),
+          decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(3),
-            ),
-            boxShadow: [
+            borderRadius: BorderRadius.circular(17),
+            border: Border.all(color: const Color(0xFFE4E8EA)),
+            boxShadow: const [
               BoxShadow(
-                color: Color(0x19000000),
-                blurRadius: 4,
-                offset: Offset(0, 3),
-                spreadRadius: 2,
+                color: Color(0x10000000),
+                blurRadius: 18,
+                offset: Offset(0, 8),
               )
             ],
           ),
@@ -58,22 +57,23 @@ class AddPurchase extends GetView<AddPurchaseController> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                      left: 3.w, right: 5.w, top: 3.h, bottom: 2.h),
+                      left: 4.w, right: 4.w, top: 2.2.h, bottom: 1.7.h),
                   child: Text(
                     isEditing
                         ? 'Update Purchase Request'
                         : 'Add Purchase Request',
                     style: TextStyle(
-                      color: const Color(0xFF4791CE),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF090D1B),
+                      fontSize: 11.8.sp,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
                 const AppDivider(),
                 // const AccountHolderInfo(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.2.h),
                   child: Column(
                     children: [
                       AppTextField(
@@ -85,7 +85,7 @@ class AddPurchase extends GetView<AddPurchaseController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Link',
                         hint: 'Link',
@@ -96,7 +96,7 @@ class AddPurchase extends GetView<AddPurchaseController> {
                         ]),
                         initialValue: item.link,
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Quantity',
                         hint: 'Quantity',
@@ -107,7 +107,7 @@ class AddPurchase extends GetView<AddPurchaseController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Notes',
                         hint: 'Notes',
@@ -122,7 +122,7 @@ class AddPurchase extends GetView<AddPurchaseController> {
                           FormBuilderValidators.required(),
                         ]),
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 2.8.h),
                       AppButton(
                         title: 'Submit',
                         onTap: () {

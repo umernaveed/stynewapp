@@ -40,14 +40,15 @@ class DownloadButton extends StatelessWidget {
         width: context.width,
         height: 5.h,
         decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xFF087C25),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
           child: Text(
             showDownloadButton ? 'Download Invoice' : 'Upload Invoice',
             style: const TextStyle(
               color: Colors.white,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ),

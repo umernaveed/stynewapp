@@ -26,24 +26,46 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar.withSmallAppLogo(),
       body: MixinBuilder<UpdateProfileController>(
         builder: (_) {
           return CustomScrollView(
             slivers: [
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 7.w),
+                padding: EdgeInsets.only(
+                  left: 4.2.w,
+                  right: 4.2.w,
+                  top: 1.4.h,
+                  bottom: 2.h,
+                ),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      FormBuilder(
-                        key: controller.formKey,
-                        clearValueOnUnregister: true,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 2.5.h),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4.w,
+                          vertical: 2.2.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(17),
+                          border: Border.all(color: const Color(0xFFE4E8EA)),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x10000000),
+                              blurRadius: 18,
+                              offset: Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: FormBuilder(
+                          key: controller.formKey,
+                          clearValueOnUnregister: true,
+                          autovalidateMode: AutovalidateMode.disabled,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                             Align(
                               alignment: Alignment.topCenter,
                               child: GetBuilder<UpdateProfileController>(
@@ -58,16 +80,16 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                               ),
                             ),
 
-                            SizedBox(height: 2.5.h),
+                            SizedBox(height: 2.h),
                             Text(
                               'Edit Your Profile',
                               style: context.textTheme.bodyMedium?.copyWith(
-                                color: const Color(0xFF7C7C7C),
-                                fontSize: 16.sp,
+                                color: const Color(0xFF090D1B),
+                                fontSize: 11.8.sp,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            SizedBox(height: 3.5.h),
+                            SizedBox(height: 2.h),
                             CustomDropDown<OutLetPair>(
                               name: 'outletId',
                               title: 'Outlet',
@@ -84,7 +106,7 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                                       ))
                                   .toList(),
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 1.8.h),
                             CustomDropDown<NormalString>(
                               name: 'userType',
                               title: 'User Type',
@@ -105,7 +127,7 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                                   .map((e) => NormalString(key: e, value: e))
                                   .toList(),
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 1.8.h),
                             AppTextField(
                               name: 'firstName',
                               title: 'First name',
@@ -118,7 +140,7 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                                 [FormBuilderValidators.required()],
                               ),
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 1.8.h),
                             AppTextField(
                               name: 'lastName',
                               title: 'Last name',
@@ -131,7 +153,7 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                                 [FormBuilderValidators.required()],
                               ),
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 1.8.h),
                             AppTextField(
                               name: 'email',
                               title: 'Email',
@@ -185,7 +207,7 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                             //     [FormBuilderValidators.required()],
                             //   ),
                             // ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 1.8.h),
                             AppTextField(
                               name: 'phone',
                               title: 'Phone (Optional)',
@@ -298,15 +320,16 @@ class UpdateProfileScreen extends GetView<UpdateProfileController> {
                             //       .map((e) => NormalString(value: e, key: e))
                             //       .toList(),
                             // ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 2.8.h),
                             AppButton(
                               title: 'Update',
                               onTap: () {
                                 controller.onUpdate();
                               },
                             ),
-                            SizedBox(height: 5.h),
-                          ],
+                            SizedBox(height: 1.h),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -394,8 +417,8 @@ class AppDatePicker extends StatelessWidget {
           title,
           style: TextStyle(
             color: const Color(0xFF7C7C7C),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.2.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
         FormBuilderDateTimePicker(
@@ -408,18 +431,18 @@ class AppDatePicker extends StatelessWidget {
           onChanged: (e) {},
           style: context.textTheme.bodyMedium?.copyWith(
             color: Colors.black,
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 10.6.sp,
+            fontWeight: FontWeight.w600,
           ),
           decoration: InputDecoration(
             suffixIcon: const Icon(
               Icons.calendar_today,
-              color: Color(0xFF4791CE),
+              color: Color(0xFF087C25),
             ),
             hintText: hint,
             hintStyle: context.textTheme.bodyMedium?.copyWith(
-              color: const Color(0x337C7C7C),
-              fontSize: 11.sp,
+              color: const Color(0xFF8A8E99),
+              fontSize: 10.2.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -449,19 +472,19 @@ class UserAvatar extends StatelessWidget {
           child: switch (showPlaceHolder) {
             true => _ProfilePlaceHolder(
                 url: 'assets/svgs/ic_person_profile.svg',
-                width: 13.h,
-                height: 13.h,
+                width: 8.6.h,
+                height: 8.6.h,
               ),
             false => switch (isFileToSow) {
                 true => _FileImage(
                     file: file!,
-                    width: 13.h,
-                    height: 13.h,
+                    width: 8.6.h,
+                    height: 8.6.h,
                   ),
                 false => CachedImage(
                     imageUrl: imageURL,
-                    width: 13.h,
-                    height: 13.h,
+                    width: 8.6.h,
+                    height: 8.6.h,
                     circular: true,
                   ),
               },
@@ -499,8 +522,8 @@ class UserAvatar extends StatelessWidget {
               ),
               child: Icon(
                 Icons.camera_alt,
-                color: Colors.black,
-                size: 2.5.h,
+                color: const Color(0xFF087C25),
+                size: 2.4.h,
               ),
             ),
           ),
@@ -553,7 +576,7 @@ class _ProfilePlaceHolder extends StatelessWidget {
       child: Container(
         height: height,
         width: width,
-        padding: EdgeInsets.all(2.h),
+        padding: EdgeInsets.all(1.4.h),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
         ),

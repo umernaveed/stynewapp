@@ -39,13 +39,13 @@ class _PickerItems extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(17),
+        border: Border.all(color: const Color(0xFFE4E8EA)),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
+            color: Color(0x10000000),
+            blurRadius: 18,
+            offset: Offset(0, 8),
           ),
         ],
       ),
@@ -95,9 +95,9 @@ class FilePickerTile extends StatelessWidget {
               maxLines: 1,
               textAlign: TextAlign.start,
               style: const TextStyle(
-                color: Colors.black,
+                color: Color(0xFF090D1B),
                 fontWeight: FontWeight.w600,
-                fontSize: 18,
+                fontSize: 13,
               ),
             ),
           ),

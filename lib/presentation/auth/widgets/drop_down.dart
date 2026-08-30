@@ -88,23 +88,46 @@ class CustomDropDownState<T extends Pair> extends State<CustomDropDown<T>> {
           widget.title,
           style: context.textTheme.bodyMedium?.copyWith(
             color: const Color(0xFF7C7C7C),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 9.2.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
-        SizedBox(height: widget.spaceBTW),
+        SizedBox(height: widget.spaceBTW ?? 0.65.h),
         FormBuilderDropdown<T>(
           name: widget.name,
           decoration: InputDecoration(
             hintText: widget.hint,
-            isDense: widget.isDense,
-            errorBorder: widget.errorBorder,
-            enabledBorder: widget.enabledBorder,
-            focusedBorder: widget.focusedBorder,
-            disabledBorder: widget.disabledBorder,
+            isDense: widget.isDense ?? true,
+            filled: true,
+            fillColor: Colors.white,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 3.4.w,
+              vertical: 1.65.h,
+            ),
+            errorBorder: widget.errorBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide: const BorderSide(color: Color(0xFFE94B4E)),
+                ),
+            enabledBorder: widget.enabledBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
+                ),
+            focusedBorder: widget.focusedBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide:
+                      const BorderSide(color: Color(0xFF087C25), width: 1.2),
+                ),
+            disabledBorder: widget.disabledBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(13),
+                  borderSide: const BorderSide(color: Color(0xFFE4E8EA)),
+                ),
             hintStyle: context.textTheme.bodyMedium?.copyWith(
-              color: const Color(0x337C7C7C),
-              fontSize: 11.sp,
+              color: const Color(0xFF8A8E99),
+              fontSize: 10.2.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -120,8 +143,8 @@ class CustomDropDownState<T extends Pair> extends State<CustomDropDown<T>> {
           elevation: 1,
           style: context.textTheme.bodyMedium?.copyWith(
             color: Colors.black,
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 10.6.sp,
+            fontWeight: FontWeight.w600,
           ),
           onChanged: (newValue) {
             setState(() {
@@ -137,8 +160,8 @@ class CustomDropDownState<T extends Pair> extends State<CustomDropDown<T>> {
                   item.value,
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: Colors.black,
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10.6.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               );

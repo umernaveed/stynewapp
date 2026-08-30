@@ -626,6 +626,19 @@ class _CardDivider extends StatelessWidget {
   }
 }
 
+class AppDivider extends StatelessWidget {
+  const AppDivider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: AccountScreen._line,
+    );
+  }
+}
+
 class _ActionsCard extends StatelessWidget {
   const _ActionsCard();
 

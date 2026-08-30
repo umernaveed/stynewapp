@@ -6,16 +6,16 @@ class LightTheme extends BaseTheme {
   BottomNavigationBarThemeData get bottomNavigationBarThemeData =>
       BottomNavigationBarThemeData(
         selectedIconTheme: const IconThemeData(
-          color: Color(0xFF4791CE),
+          color: Color(0xFF087C25),
         ),
         unselectedIconTheme: const IconThemeData(
           color: Color(0xFF181725),
         ),
-        selectedItemColor: const Color(0xFF4791CE),
+        selectedItemColor: const Color(0xFF087C25),
         unselectedItemColor: const Color(0xFF181725),
         selectedLabelStyle: TextStyle(
-          color: const Color(0xFF4791CE),
-          fontSize: 12,
+          color: const Color(0xFF087C25),
+          fontSize: 8,
           fontWeight: FontWeight.w600,
         ),
         showSelectedLabels: true,
@@ -23,7 +23,7 @@ class LightTheme extends BaseTheme {
         showUnselectedLabels: true,
         unselectedLabelStyle: TextStyle(
           color: const Color(0xFF181725),
-          fontSize: 12,
+          fontSize: 8,
           fontWeight: FontWeight.w400,
         ),
       );
@@ -71,11 +71,11 @@ class LightTheme extends BaseTheme {
         ),
 
         hintStyle: TextStyle(
-          color: const Color(0x337C7C7C),
-          fontSize: 16,
+          color: const Color(0xFF8A8E99),
+          fontSize: 12,
           fontFamily: fontTheme.fontFamily,
           fontWeight: FontWeight.w400,
-          height: 0.11,
+          height: 1.2,
         ),
       );
 
@@ -88,17 +88,17 @@ class LightTheme extends BaseTheme {
   Color get scaffoldBackgroundColor => Colors.white;
 
   @override
-  MaterialColor get primarySwatch => MaterialColor(0xFF4791CE, {
-        50: const Color(0xFF4791CE).withOpacity(0.1),
-        100: const Color(0xFF4791CE).withOpacity(0.2),
-        200: const Color(0xFF4791CE).withOpacity(0.3),
-        300: const Color(0xFF4791CE).withOpacity(0.4),
-        400: const Color(0xFF4791CE).withOpacity(0.5),
-        500: const Color(0xFF4791CE), // Primary color
-        600: const Color(0xFF4791CE).withOpacity(0.6),
-        700: const Color(0xFF4791CE).withOpacity(0.7),
-        800: const Color(0xFF4791CE).withOpacity(0.8),
-        900: const Color(0xFF4791CE).withOpacity(0.9),
+  MaterialColor get primarySwatch => MaterialColor(0xFF087C25, {
+        50: const Color(0xFF087C25).withOpacity(0.1),
+        100: const Color(0xFF087C25).withOpacity(0.2),
+        200: const Color(0xFF087C25).withOpacity(0.3),
+        300: const Color(0xFF087C25).withOpacity(0.4),
+        400: const Color(0xFF087C25).withOpacity(0.5),
+        500: const Color(0xFF087C25), // Primary color
+        600: const Color(0xFF087C25).withOpacity(0.6),
+        700: const Color(0xFF087C25).withOpacity(0.7),
+        800: const Color(0xFF087C25).withOpacity(0.8),
+        900: const Color(0xFF087C25).withOpacity(0.9),
       });
 
   /// dark theme swatch

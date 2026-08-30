@@ -13,10 +13,10 @@ class AppUpdateDialog extends StatelessWidget {
     return Dialog(
       alignment: Alignment.center,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(17),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,8 +27,9 @@ class AppUpdateDialog extends StatelessWidget {
               'App Update',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
+                color: const Color(0xFF090D1B),
+                fontSize: 11.8.sp,
+                fontWeight: FontWeight.w800,
               ),
             ),
             SizedBox(height: 3.h),
@@ -36,8 +37,9 @@ class AppUpdateDialog extends StatelessWidget {
               'A new version of straight_to_yard is Available.\n Do you want to Upgrade?',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w400,
+                color: const Color(0xFF757987),
+                fontSize: 9.8.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: 3.h),
@@ -49,7 +51,7 @@ class AppUpdateDialog extends StatelessWidget {
                     height: 5.5.h,
                     child: AppButton(
                       title: 'Later',
-                      buttonBorderRadius: 5,
+                      buttonBorderRadius: 12,
                       backgroundColor: Colors.red,
                       onTap: () => Get.back(),
                     ),
@@ -61,7 +63,7 @@ class AppUpdateDialog extends StatelessWidget {
                     height: 5.5.h,
                     child: AppButton(
                       title: 'Upgrade',
-                      buttonBorderRadius: 5,
+                      buttonBorderRadius: 12,
                       onTap: () {
                         Get.back();
                         final bNC = find<DashboardController>();

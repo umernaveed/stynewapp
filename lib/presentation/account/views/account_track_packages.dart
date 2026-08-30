@@ -20,7 +20,7 @@ class AccountTrackePackages extends GetView<AllDeliveryPackagesController> {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar.withSmallAppLogo(
         backButtonVisible: true,
         usingNavigator: true,
@@ -28,32 +28,30 @@ class AccountTrackePackages extends GetView<AllDeliveryPackagesController> {
       body: Container(
         width: context.width,
         margin:
-            EdgeInsets.only(left: 4.5.w, right: 4.5.w, top: 4.h, bottom: 2.h),
-        decoration: const BoxDecoration(
+            EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 2.h, bottom: 2.h),
+        decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(3),
-          ),
-          boxShadow: [
+          borderRadius: BorderRadius.circular(17),
+          border: Border.all(color: const Color(0xFFE4E8EA)),
+          boxShadow: const [
             BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 4,
-              offset: Offset(0, 3),
-              spreadRadius: 1.8,
+              color: Color(0x10000000),
+              blurRadius: 18,
+              offset: Offset(0, 8),
             )
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+          padding: EdgeInsets.symmetric(horizontal: 3.2.w, vertical: 2.2.h),
           child: Column(
             children: [
-              SizedBox(height: 2.h),
+              SizedBox(height: 0),
               SearchField(
                 controller: controller.textEditingController,
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               const AppDivider(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.6.h),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () => Future.sync(
@@ -71,7 +69,7 @@ class AccountTrackePackages extends GetView<AllDeliveryPackagesController> {
                           _InvoicesItemWidget(item),
                     ),
                     separatorBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                      padding: EdgeInsets.symmetric(vertical: 1.35.h),
                       child: const AppDivider(),
                     ),
                   ),

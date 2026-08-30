@@ -30,7 +30,7 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar.withSmallAppLogo(
         backButtonVisible: true,
         usingNavigator: true,
@@ -39,18 +39,17 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
         physics: const ClampingScrollPhysics(),
         child: Container(
           width: context.width,
-          margin: EdgeInsets.only(left: 6.w, right: 6.w, top: 2.h, bottom: 2.h),
-          decoration: const BoxDecoration(
+          margin:
+              EdgeInsets.only(left: 4.2.w, right: 4.2.w, top: 2.h, bottom: 2.h),
+          decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(3),
-            ),
-            boxShadow: [
+            borderRadius: BorderRadius.circular(17),
+            border: Border.all(color: const Color(0xFFE4E8EA)),
+            boxShadow: const [
               BoxShadow(
-                color: Color(0x19000000),
-                blurRadius: 4,
-                offset: Offset(0, 3),
-                spreadRadius: 2,
+                color: Color(0x10000000),
+                blurRadius: 18,
+                offset: Offset(0, 8),
               )
             ],
           ),
@@ -61,19 +60,20 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                      left: 3.w, right: 5.w, top: 3.h, bottom: 2.h),
+                      left: 4.w, right: 4.w, top: 2.2.h, bottom: 1.7.h),
                   child: Text(
                     isEditing ? 'Update Authorize User' : 'Add Authorize User',
                     style: TextStyle(
-                      color: const Color(0xFF4791CE),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF090D1B),
+                      fontSize: 11.8.sp,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
                 const AppDivider(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.2.h),
                   child: Column(
                     children: [
                       AppTextField(
@@ -85,7 +85,7 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'Phone #',
                         hint: 'Phone #',
@@ -98,7 +98,7 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 1.8.h),
                       AppTextField(
                         title: 'ID/Proof',
                         hint: 'ID/Proof',
@@ -108,7 +108,7 @@ class AddAuthorizeUser extends GetView<AddAuthorizeUserController> {
                           [FormBuilderValidators.required()],
                         ),
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 2.8.h),
                       AppButton(
                         title: 'Submit',
                         onTap: () {

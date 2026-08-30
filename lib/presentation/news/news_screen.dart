@@ -22,7 +22,7 @@ class NewsScreen extends GetView<NewsController> {
     return BaseScreen(
       showGradients: false,
       value: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xFFFAF4F2).withOpacity(0.4),
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: AuthCustomAppBar.withSmallAppLogo(
         backID: find<BottomNavController>().bottomNavNestedID,
       ),
@@ -31,7 +31,12 @@ class NewsScreen extends GetView<NewsController> {
           () => controller.pagingController.refresh(),
         ),
         child: PagedListView<int, News>.separated(
-          padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
+          padding: EdgeInsets.only(
+            left: 4.2.w,
+            right: 4.2.w,
+            top: 1.4.h,
+            bottom: 2.5.h,
+          ),
           physics: const AlwaysScrollableScrollPhysics(),
           shrinkWrap: true,
           pagingController: controller.pagingController,
@@ -49,7 +54,7 @@ class NewsScreen extends GetView<NewsController> {
               return _NewsItem(news: item);
             },
           ),
-          separatorBuilder: (context, index) => SizedBox(height: 3.h),
+          separatorBuilder: (context, index) => SizedBox(height: 2.h),
         ),
       ),
     );
@@ -63,38 +68,45 @@ class _NewsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.w),
-      padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.5.h),
+      padding: EdgeInsets.symmetric(horizontal: 3.2.w, vertical: 1.6.h),
       width: context.width,
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(17),
+        border: Border.all(color: const Color(0xFFE4E8EA)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x10000000),
+            blurRadius: 18,
+            offset: Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(13),
             child: CachedNetworkImage(
               imageUrl: news.image,
               fit: BoxFit.cover,
               width: context.width,
-              height: 30.h,
+              height: 25.h,
               placeholder: (context, url) => Image.asset(
                 Drawables.emptyImage,
                 fit: BoxFit.cover,
                 width: context.width,
-                height: 30.h,
+                height: 25.h,
               ),
               errorWidget: (context, url, error) => Image.asset(
                 Drawables.emptyImage,
                 fit: BoxFit.fill,
                 width: context.width,
-                height: 30.h,
+                height: 25.h,
               ),
             ),
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 1.2.h),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -103,10 +115,10 @@ class _NewsItem extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: context.textTheme.bodyLarge?.copyWith(
-                color: Colors.black,
-                fontSize: 16.sp,
+                color: const Color(0xFF090D1B),
+                fontSize: 11.2.sp,
                 fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -132,16 +144,16 @@ class _ShimmmerListView extends StatelessWidget {
     return ListView.separated(
       itemCount: 4,
       shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.5.h),
+      padding: EdgeInsets.symmetric(horizontal: 4.2.w, vertical: 0.5.h),
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return ShimmerWidget(
-          height: 45.h,
-          radius: BorderRadius.circular(10),
+          height: 36.h,
+          radius: BorderRadius.circular(17),
           child: const SizedBox.shrink(),
         );
       },
-      separatorBuilder: (context, index) => SizedBox(height: 3.h),
+      separatorBuilder: (context, index) => SizedBox(height: 2.h),
     );
   }
 }

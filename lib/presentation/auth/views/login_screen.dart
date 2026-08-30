@@ -18,13 +18,14 @@ class LoginScreen extends GetView<LoginController> {
     return BaseScreen(
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
+      backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar(
         backButtonVisible: false,
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.2.w),
           child: FormBuilder(
             key: controller.formKey,
             clearValueOnUnregister: true,
@@ -37,10 +38,10 @@ class LoginScreen extends GetView<LoginController> {
                 Text(
                   'Log In',
                   style: context.textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF4791CE),
-                    fontSize: 26,
+                    color: const Color(0xFF090D1B),
+                    fontSize: 15.2.sp,
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 SizedBox(height: .5.h),
@@ -48,8 +49,8 @@ class LoginScreen extends GetView<LoginController> {
                   'Enter your emails and password',
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: const Color(0xFF7C7C7C),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10.2.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 3.h),
@@ -57,8 +58,8 @@ class LoginScreen extends GetView<LoginController> {
                   'Email',
                   style: TextStyle(
                     color: const Color(0xFF7C7C7C),
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 9.2.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 FormBuilderTextField(
@@ -74,8 +75,8 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                   style: const TextStyle(
                     color: Color(0xFF181725),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10.6.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 4.h),
@@ -83,8 +84,8 @@ class LoginScreen extends GetView<LoginController> {
                   'Password',
                   style: TextStyle(
                     color: const Color(0xFF7C7C7C),
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 9.2.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 ValueListenableBuilder<bool>(
@@ -102,9 +103,9 @@ class LoginScreen extends GetView<LoginController> {
                         ),
                         style: const TextStyle(
                           color: Color(0xFF181725),
-                          fontSize: 18,
+                          fontSize: 10.6.sp,
                           letterSpacing: 3,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                         ),
                         decoration: InputDecoration(
                           hintText: '●●●●●●●',
@@ -126,9 +127,9 @@ class LoginScreen extends GetView<LoginController> {
                       'Forgot Password?',
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF4791CE),
+                        color: const Color(0xFF087C25),
                         fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -197,7 +198,7 @@ class AuthWidgetSpanBuilder extends StatelessWidget {
                 child: Text(
                   secondTitle,
                   style: context.textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF4791CE),
+                    color: const Color(0xFF087C25),
                     fontSize: 10.5.sp,
                     fontWeight: FontWeight.w400,
                   ),
@@ -230,8 +231,8 @@ class AppButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.side = BorderSide.none,
-    this.buttonBorderRadius = 19,
-    this.height = 6.9,
+    this.buttonBorderRadius = 12,
+    this.height = 6.2,
     this.fontSize,
     this.width,
   });
@@ -244,7 +245,7 @@ class AppButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           disabledBackgroundColor: Colors.black12.withOpacity(0.1),
-          backgroundColor: backgroundColor ?? const Color(0xFF4791CE),
+          backgroundColor: backgroundColor ?? const Color(0xFF087C25),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(buttonBorderRadius),
             side: side,
@@ -255,8 +256,8 @@ class AppButton extends StatelessWidget {
           title,
           style: TextStyle(
             color: textColor ?? const Color(0xFFFFF9FF),
-            fontSize: fontSize ?? 18,
-            fontWeight: FontWeight.w700,
+            fontSize: fontSize ?? 10.8.sp,
+            fontWeight: FontWeight.w800,
           ),
         ),
       ),

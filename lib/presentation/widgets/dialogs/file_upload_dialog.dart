@@ -36,7 +36,15 @@ class FileUploadDialog extends GetView<FileUploadController> {
                 EdgeInsets.only(left: 4.w, right: 4.w, top: 2.h, bottom: 1.3.h),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(17),
+              border: Border.all(color: const Color(0xFFE4E8EA)),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x18000000),
+                  blurRadius: 22,
+                  offset: Offset(0, 10),
+                ),
+              ],
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -44,7 +52,14 @@ class FileUploadDialog extends GetView<FileUploadController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 2.h),
-                const Text('Upload File'),
+                Text(
+                  'Upload File',
+                  style: TextStyle(
+                    color: const Color(0xFF090D1B),
+                    fontSize: 11.2.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 SizedBox(height: 2.h),
                 const _FilePickerWidget(false),
                 SizedBox(height: 2.h),
@@ -61,7 +76,7 @@ class FileUploadDialog extends GetView<FileUploadController> {
                           )
                         : AppButton(
                             title: 'Upload',
-                            buttonBorderRadius: 5,
+                            buttonBorderRadius: 12,
                             height: 6,
                             fontSize: 11.sp,
                             onTap: controller.file == null
@@ -88,10 +103,10 @@ class FileUploadDialog extends GetView<FileUploadController> {
                 color: Color(0xFFF2F3F2),
               ),
               child: IconButton(
-                splashColor: Colors.blue,
+                splashColor: const Color(0xFFEAF5ED),
                 splashRadius: 10,
                 padding: EdgeInsets.zero,
-                highlightColor: Colors.blue,
+                highlightColor: const Color(0xFFEAF5ED),
                 onPressed: () {
                   controller.clearFile();
                   Get.back();
@@ -118,13 +133,10 @@ class _FilePickerWidget extends GetView<FileUploadController> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
       decoration: ShapeDecoration(
-        color: const Color(0xFFEFEFEF),
+        color: const Color(0xFFF8FBFF),
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: 1,
-            color: Colors.black.withOpacity(0.30000001192092896),
-          ),
-          borderRadius: BorderRadius.circular(3),
+          side: const BorderSide(color: Color(0xFFE4E8EA)),
+          borderRadius: BorderRadius.circular(13),
         ),
       ),
       child: GetBuilder<FileUploadController>(
@@ -138,9 +150,9 @@ class _FilePickerWidget extends GetView<FileUploadController> {
                   isImagePicker ? 'No Image choosen' : 'No file choosen',
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 10.5.sp,
-                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF757987),
+                    fontSize: 9.4.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 )
               ] else ...[
@@ -155,9 +167,9 @@ class _FilePickerWidget extends GetView<FileUploadController> {
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         overflow: TextOverflow.ellipsis,
-                        color: Colors.black,
-                        fontSize: 10.5.sp,
-                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF090D1B),
+                        fontSize: 9.4.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -176,14 +188,15 @@ class _FilePickerWidget extends GetView<FileUploadController> {
                   height: 4.h,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEFEFEF),
+                    color: const Color(0xFFEAF5ED),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.black.withOpacity(0.30000001192092896),
+                      color: const Color(0xFFD8E9DD),
                     ),
                   ),
                   child: Icon(
                     Icons.attach_file,
+                    color: const Color(0xFF087C25),
                     size: 2.3.h,
                   ),
                 ),
@@ -211,7 +224,7 @@ void _showPickerSheet(
           child: const Text(
             'Image',
             style: TextStyle(
-              color: Colors.blue,
+              color: Color(0xFF087C25),
             ),
           ),
           onPressed: () {
@@ -223,7 +236,7 @@ void _showPickerSheet(
           child: const Text(
             'File',
             style: TextStyle(
-              color: Colors.blue,
+              color: Color(0xFF087C25),
             ),
           ),
           onPressed: () {

@@ -25,7 +25,15 @@ class DownloadDialog extends GetView<FileDownloadController> {
                 EdgeInsets.only(left: 4.w, right: 4.w, top: 2.h, bottom: 1.3.h),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(17),
+              border: Border.all(color: const Color(0xFFE4E8EA)),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x18000000),
+                  blurRadius: 22,
+                  offset: Offset(0, 10),
+                ),
+              ],
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -33,7 +41,14 @@ class DownloadDialog extends GetView<FileDownloadController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 1.h),
-                const Text('Downloading File'),
+                Text(
+                  'Downloading File',
+                  style: TextStyle(
+                    color: const Color(0xFF090D1B),
+                    fontSize: 11.2.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 SizedBox(height: 2.h),
                 Obx(
                   () => LinearProgressIndicator(
@@ -41,7 +56,7 @@ class DownloadDialog extends GetView<FileDownloadController> {
                     minHeight: 10.0,
                     borderRadius: BorderRadius.circular(10),
                     valueColor: const AlwaysStoppedAnimation<Color>(
-                      Colors.blue,
+                      Color(0xFF087C25),
                     ),
                   ),
                 ),
@@ -59,10 +74,10 @@ class DownloadDialog extends GetView<FileDownloadController> {
                 color: Color(0xFFF2F3F2),
               ),
               child: IconButton(
-                splashColor: Colors.blue,
+                splashColor: const Color(0xFFEAF5ED),
                 splashRadius: 10,
                 padding: EdgeInsets.zero,
-                highlightColor: Colors.blue,
+                highlightColor: const Color(0xFFEAF5ED),
                 onPressed: () {
                   controller.clear();
                   Get.back();
