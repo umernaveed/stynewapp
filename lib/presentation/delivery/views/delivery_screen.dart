@@ -71,10 +71,10 @@ class DeliveryScreen extends GetView<DeliveryController> {
                       animateTransitions: true,
                       transitionDuration: 400.milliseconds,
                       firstPageProgressIndicatorBuilder: (_) {
-                        return const ShimmerListView();
+                        return ShimmerListView();
                       },
                       newPageProgressIndicatorBuilder: (_) {
-                        return const ShimmerListView();
+                        return ShimmerListView();
                       },
                       noItemsFoundIndicatorBuilder: (_) {
                         return const _StateMessage('No delivery packages found');
