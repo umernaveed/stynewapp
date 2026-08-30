@@ -30,9 +30,11 @@ class DeliveryController extends GetxController
     final amount = num.tryParse(item.packageInvoice ?? '0') ?? 0;
     if (selectedItems.contains(item)) {
       selectedItems.remove(item);
+      item.isToggleOn = false;
       totalAmount.value = totalAmount.value - amount;
     } else {
       selectedItems.add(item);
+      item.isToggleOn = true;
       totalAmount.value = totalAmount.value + amount;
     }
   }
@@ -57,6 +59,17 @@ class DeliveryController extends GetxController
   Future<List<GetAllPackage>> listener(int pageKey,
       {String keyToSearch = ''}) async {
     final result = await _remoteRepository.getAllDeliveryPackage();
-    return result.data.packages;
+    final packages = result.data.packages;
+    final query = keyToSearch.trim().toLowerCase();
+    if (query.isEmpty) return packages;
+
+    return packages.where((item) {
+      return item.trackingNo.toLowerCase().contains(query) ||
+          item.manifestNo.toLowerCase().contains(query) ||
+          item.packageCode.toLowerCase().contains(query) ||
+          item.supplierTrackingNo.toLowerCase().contains(query) ||
+          item.courier.toLowerCase().contains(query) ||
+          item.itemDescription.toLowerCase().contains(query);
+    }).toList();
   }
 }
