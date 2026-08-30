@@ -73,7 +73,7 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         isDense: true,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: const Color(0xFFFBFCFE),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 3.4.w,
           vertical: type.isParagraph ? 1.5.h : 1.65.h,
@@ -125,7 +125,7 @@ class AppTextField extends StatelessWidget {
           style: TextStyle(
             color: titleColor ?? const Color(0xFF7C7C7C),
             fontSize: 9.2.sp,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w800,
           ),
         ),
         SizedBox(height: 0.65.h),

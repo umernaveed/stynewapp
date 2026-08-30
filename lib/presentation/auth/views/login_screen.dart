@@ -8,6 +8,8 @@ import 'package:straight_to_yard/app/core/routes/app_pages.dart';
 import 'package:straight_to_yard/app/util/flush_snackbar.dart';
 import 'package:straight_to_yard/presentation/auth/controllers/login_controller.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/auth_surface.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/text_field.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -19,122 +21,67 @@ class LoginScreen extends GetView<LoginController> {
       wrapWithAnnotatedRegion: true,
       value: SystemUiOverlayStyle.dark,
       backgroundColor: const Color(0xFFF8FBFF),
-      appBar: const AuthCustomAppBar(
-        backButtonVisible: false,
-      ),
+      appBar: const AuthCustomAppBar(backButtonVisible: false),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.2.w),
-          child: FormBuilder(
-            key: controller.formKey,
-            clearValueOnUnregister: true,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+        padding: EdgeInsets.fromLTRB(4.2.w, 1.5.h, 4.2.w, 4.h),
+        child: FormBuilder(
+          key: controller.formKey,
+          clearValueOnUnregister: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: AuthSurface(
+            title: 'Log In',
+            subtitle: 'Enter your email and password to continue.',
+            icon: Icons.login_rounded,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 1.5.h),
-                Text(
-                  'Log In',
-                  style: context.textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF090D1B),
-                    fontSize: 15.2.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                SizedBox(height: .5.h),
-                Text(
-                  'Enter your emails and password',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF7C7C7C),
-                    fontSize: 10.2.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 3.h),
-                Text(
-                  'Email',
-                  style: TextStyle(
-                    color: const Color(0xFF7C7C7C),
-                    fontSize: 9.2.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FormBuilderTextField(
+                AppTextField(
                   name: 'email',
-                  decoration: const InputDecoration(
-                    hintText: 'imshuvo97@gmail.com',
-                  ),
+                  title: 'Email',
+                  hint: 'imshuvo97@gmail.com',
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
-                      FormBuilderValidators.email()
+                      FormBuilderValidators.email(),
                     ],
                   ),
-                  style: TextStyle(
-                    color: const Color(0xFF181725),
-                    fontSize: 10.6.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
-                SizedBox(height: 4.h),
-                Text(
-                  'Password',
-                  style: TextStyle(
-                    color: const Color(0xFF7C7C7C),
-                    fontSize: 9.2.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const AuthFormGap(),
                 ValueListenableBuilder<bool>(
-                    valueListenable: controller.passwordVisibility,
-                    builder: (context, value, child) {
-                      return FormBuilderTextField(
-                        name: 'password',
-                        obscureText: value,
-                        obscuringCharacter: '●',
-                        validator: FormBuilderValidators.compose(
-                          [
-                            FormBuilderValidators.required(),
-                            FormBuilderValidators.minLength(6)
-                          ],
-                        ),
-                        style: TextStyle(
-                          color: const Color(0xFF181725),
-                          fontSize: 10.6.sp,
-                          letterSpacing: 3,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: '●●●●●●●',
-                          suffixIcon: IconButton(
-                            onPressed: () => controller.onPasswordToggle(),
-                            icon: Icon(
-                              !value ? Icons.visibility_off : Icons.visibility,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                SizedBox(height: 0.2.h),
+                  valueListenable: controller.passwordVisibility,
+                  builder: (context, value, child) {
+                    return AppTextField(
+                      name: 'password',
+                      title: 'Password',
+                      type: FieldType.passowrd,
+                      obscureText: value,
+                      onPasswordToggle: () => controller.onPasswordToggle(),
+                      validator: FormBuilderValidators.compose(
+                        [
+                          FormBuilderValidators.required(),
+                          FormBuilderValidators.minLength(6),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 0.6.h),
                 Align(
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () => Get.toNamed(AppPages.forgetPassword),
                     child: Text(
                       'Forgot Password?',
-                      textAlign: TextAlign.center,
                       style: context.textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF087C25),
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600,
+                        color: AuthSurface.green,
+                        fontSize: 9.6.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 1.4.h),
                 AppButton(
                   title: 'Log In',
                   onTap: () {
@@ -150,9 +97,9 @@ class LoginScreen extends GetView<LoginController> {
                     });
                   },
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 2.2.h),
                 AuthWidgetSpanBuilder(
-                  firstTitle: 'Don’t have an account? ',
+                  firstTitle: 'Don\'t have an account? ',
                   secondTitle: 'Signup',
                   onTap: () => Get.toNamed(AppPages.signUp),
                 ),
@@ -166,11 +113,13 @@ class LoginScreen extends GetView<LoginController> {
 }
 
 class AuthWidgetSpanBuilder extends StatelessWidget {
-  const AuthWidgetSpanBuilder(
-      {super.key,
-      required this.firstTitle,
-      required this.secondTitle,
-      this.onTap});
+  const AuthWidgetSpanBuilder({
+    super.key,
+    required this.firstTitle,
+    required this.secondTitle,
+    this.onTap,
+  });
+
   final String firstTitle;
   final String secondTitle;
   final VoidCallback? onTap;
@@ -185,26 +134,30 @@ class AuthWidgetSpanBuilder extends StatelessWidget {
             TextSpan(
               text: firstTitle,
               style: context.textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF181725),
+                color: AuthSurface.text,
                 fontSize: 9.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
             ),
             WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
               child: InkWell(
-                splashColor: Colors.blue,
-                borderRadius: BorderRadius.circular(3),
+                splashColor: AuthSurface.green.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(5),
                 onTap: onTap,
-                child: Text(
-                  secondTitle,
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF087C25),
-                    fontSize: 10.5.sp,
-                    fontWeight: FontWeight.w400,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0.6.w),
+                  child: Text(
+                    secondTitle,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AuthSurface.green,
+                      fontSize: 10.2.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -213,17 +166,6 @@ class AuthWidgetSpanBuilder extends StatelessWidget {
 }
 
 class AppButton extends StatelessWidget {
-  final String title;
-  final VoidCallback? onTap;
-  final Color? backgroundColor;
-  final Color? textColor;
-  final BorderSide side;
-  final double buttonBorderRadius;
-
-  /// .h is internaly used
-  final double height;
-  final double? width;
-  final double? fontSize;
   const AppButton({
     super.key,
     required this.title,
@@ -237,6 +179,16 @@ class AppButton extends StatelessWidget {
     this.width,
   });
 
+  final String title;
+  final VoidCallback? onTap;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final BorderSide side;
+  final double buttonBorderRadius;
+  final double height;
+  final double? width;
+  final double? fontSize;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -245,7 +197,7 @@ class AppButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           disabledBackgroundColor: Colors.black12.withOpacity(0.1),
-          backgroundColor: backgroundColor ?? const Color(0xFF087C25),
+          backgroundColor: backgroundColor ?? AuthSurface.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(buttonBorderRadius),
             side: side,

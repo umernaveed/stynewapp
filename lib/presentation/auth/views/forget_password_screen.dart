@@ -7,6 +7,8 @@ import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/presentation/auth/controllers/forget_password_controller.dart';
 import 'package:straight_to_yard/presentation/auth/views/login_screen.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/auth_surface.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/text_field.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 
 class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
@@ -21,54 +23,34 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.2.w),
-          child: FormBuilder(
-            key: controller.formKey,
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.fromLTRB(4.2.w, 1.5.h, 4.2.w, 4.h),
+        child: FormBuilder(
+          key: controller.formKey,
+          child: AuthSurface(
+            title: 'Forgot Password',
+            subtitle: 'Enter your email and we will help you reset access.',
+            icon: Icons.lock_reset_rounded,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 2.5.h),
-                Text(
-                  'Forget password',
-                  style: context.textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF090D1B),
-                    fontSize: 15.2.sp,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                SizedBox(height: 3.h),
-                Text(
-                  'Email',
-                  style: TextStyle(
-                    color: const Color(0xFF7C7C7C).withOpacity(0.7),
-                    fontSize: 9.2.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FormBuilderTextField(
+                AppTextField(
                   name: 'email',
+                  title: 'Email',
+                  hint: 'imshuvo97@gmail.com',
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
-                      FormBuilderValidators.email()
+                      FormBuilderValidators.email(),
                     ],
                   ),
-                  decoration: const InputDecoration(
-                    hintText: 'imshuvo97@gmail.com',
-                  ),
-                  style: TextStyle(
-                    color: const Color(0xFF181725),
-                    fontSize: 10.6.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
-                SizedBox(height: 4.5.h),
+                SizedBox(height: 2.5.h),
                 AppButton(
                   title: 'Submit',
                   onTap: () => controller.onSubmit(),
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 2.2.h),
                 AuthWidgetSpanBuilder(
                   firstTitle: 'Already have an account? ',
                   secondTitle: 'Sign In',

@@ -89,7 +89,7 @@ class CustomDropDownState<T extends Pair> extends State<CustomDropDown<T>> {
           style: context.textTheme.bodyMedium?.copyWith(
             color: const Color(0xFF7C7C7C),
             fontSize: 9.2.sp,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w800,
           ),
         ),
         SizedBox(height: widget.spaceBTW ?? 0.65.h),
@@ -99,7 +99,7 @@ class CustomDropDownState<T extends Pair> extends State<CustomDropDown<T>> {
             hintText: widget.hint,
             isDense: widget.isDense ?? true,
             filled: true,
-            fillColor: Colors.white,
+            fillColor: const Color(0xFFFBFCFE),
             contentPadding: EdgeInsets.symmetric(
               horizontal: 3.4.w,
               vertical: 1.65.h,

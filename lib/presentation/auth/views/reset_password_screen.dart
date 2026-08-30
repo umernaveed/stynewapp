@@ -9,6 +9,8 @@ import 'package:straight_to_yard/app/util/flush_snackbar.dart';
 import 'package:straight_to_yard/presentation/auth/controllers/reset_password_controller.dart';
 import 'package:straight_to_yard/presentation/auth/views/login_screen.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/auth_surface.dart';
+import 'package:straight_to_yard/presentation/auth/widgets/text_field.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 
 class ResetPasswordScreen extends GetView<ResetPasswordController> {
@@ -22,89 +24,43 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       backgroundColor: const Color(0xFFF8FBFF),
       appBar: const AuthCustomAppBar(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.2.w),
-          child: FormBuilder(
-            key: controller.formKey,
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.fromLTRB(4.2.w, 1.5.h, 4.2.w, 4.h),
+        child: FormBuilder(
+          key: controller.formKey,
+          child: AuthSurface(
+            title: 'Reset Password',
+            subtitle: 'Create a new password for your account.',
+            icon: Icons.password_rounded,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 1.5.h),
-                Text(
-                  'Re-set Password',
-                  style: context.textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF090D1B),
-                    fontSize: 15.2.sp,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                SizedBox(height: 3.h),
-                Text(
-                  'Old Password',
-                  style: TextStyle(
-                    color: const Color(0xFF7C7C7C),
-                    fontSize: 9.2.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FormBuilderTextField(
+                AppTextField(
                   name: 'old_pass',
+                  title: 'Old Password',
+                  type: FieldType.passowrd,
                   obscureText: true,
-                  obscuringCharacter: '●',
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(6),
                     ],
                   ),
-                  style: TextStyle(
-                    color: const Color(0xFF181725),
-                    fontSize: 10.6.sp,
-                    letterSpacing: 3,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: '●●●●●●●',
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.remove_red_eye),
-                    ),
-                  ),
                 ),
-                SizedBox(height: 5.4.h),
-                Text(
-                  'New Password',
-                  style: TextStyle(
-                    color: const Color(0xFF7C7C7C),
-                    fontSize: 9.2.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FormBuilderTextField(
+                const AuthFormGap(height: 2),
+                AppTextField(
                   name: 'new_pass',
+                  title: 'New Password',
+                  type: FieldType.passowrd,
                   obscureText: true,
-                  obscuringCharacter: '●',
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(6),
                     ],
                   ),
-                  style: TextStyle(
-                    color: const Color(0xFF181725),
-                    fontSize: 10.6.sp,
-                    letterSpacing: 3,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: '●●●●●●●',
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.remove_red_eye),
-                    ),
-                  ),
                 ),
-                SizedBox(height: 4.5.h),
+                SizedBox(height: 2.6.h),
                 AppButton(
                   title: 'Submit',
                   onTap: () {
@@ -118,10 +74,10 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
                     });
                   },
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 2.2.h),
                 AuthWidgetSpanBuilder(
                   firstTitle: 'Already have an account? ',
-                  secondTitle: 'Sing In',
+                  secondTitle: 'Sign In',
                   onTap: () => Get.offAllNamed(AppPages.login),
                 ),
               ],
