@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '275806864754',
     projectId: 'straight-to-yards',
     storageBucket: 'straight-to-yards.firebasestorage.app',
-    iosBundleId: 'com.straighttoyard.mobile.app',
+    iosBundleId: 'com.straighttoyard.app',
   );
 
 }
