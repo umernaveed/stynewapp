@@ -73,8 +73,8 @@ class LoginScreen extends GetView<LoginController> {
                       FormBuilderValidators.email()
                     ],
                   ),
-                  style: const TextStyle(
-                    color: Color(0xFF181725),
+                  style: TextStyle(
+                    color: const Color(0xFF181725),
                     fontSize: 10.6.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -101,8 +101,8 @@ class LoginScreen extends GetView<LoginController> {
                             FormBuilderValidators.minLength(6)
                           ],
                         ),
-                        style: const TextStyle(
-                          color: Color(0xFF181725),
+                        style: TextStyle(
+                          color: const Color(0xFF181725),
                           fontSize: 10.6.sp,
                           letterSpacing: 3,
                           fontWeight: FontWeight.w600,

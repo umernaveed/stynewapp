@@ -57,8 +57,8 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                   decoration: const InputDecoration(
                     hintText: 'imshuvo97@gmail.com',
                   ),
-                  style: const TextStyle(
-                    color: Color(0xFF181725),
+                  style: TextStyle(
+                    color: const Color(0xFF181725),
                     fontSize: 10.6.sp,
                     fontWeight: FontWeight.w600,
                   ),

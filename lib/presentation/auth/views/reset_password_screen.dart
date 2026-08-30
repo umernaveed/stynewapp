@@ -57,8 +57,8 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
                       FormBuilderValidators.minLength(6),
                     ],
                   ),
-                  style: const TextStyle(
-                    color: Color(0xFF181725),
+                  style: TextStyle(
+                    color: const Color(0xFF181725),
                     fontSize: 10.6.sp,
                     letterSpacing: 3,
                     fontWeight: FontWeight.w600,
@@ -90,8 +90,8 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
                       FormBuilderValidators.minLength(6),
                     ],
                   ),
-                  style: const TextStyle(
-                    color: Color(0xFF181725),
+                  style: TextStyle(
+                    color: const Color(0xFF181725),
                     fontSize: 10.6.sp,
                     letterSpacing: 3,
                     fontWeight: FontWeight.w600,
