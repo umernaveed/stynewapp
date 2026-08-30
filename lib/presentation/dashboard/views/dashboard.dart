@@ -76,12 +76,7 @@ class _HomeHeader extends StatelessWidget {
       leadingIcon: Icons.menu_rounded,
       onBack: () {
         final bottomNavNestedID = find<BottomNavController>().bottomNavNestedID;
-        final navigator = Get.nestedKey(bottomNavNestedID)?.currentState;
-        if (navigator?.canPop() ?? false) {
-          Get.back(id: bottomNavNestedID);
-        } else {
-          Get.toNamed(AppPages.account, id: bottomNavNestedID);
-        }
+        Get.toNamed(AppPages.account, id: bottomNavNestedID);
       },
       trailing: IconButton(
           iconSize: 3.9.h,
