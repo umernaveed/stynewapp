@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sizer/sizer.dart';
 import 'package:straight_to_yard/app/core/get_di.dart';
-import 'package:straight_to_yard/app/core/routes/app_pages.dart';
-import 'package:straight_to_yard/app/extensions/string_ext.dart';
-import 'package:straight_to_yard/data/models/get_all_package/get_all_package.dart';
 import 'package:straight_to_yard/presentation/auth/widgets/auth_app_bar.dart';
 import 'package:straight_to_yard/presentation/base_screen.dart';
 import 'package:straight_to_yard/presentation/bottom_nav/controllers/bottom_nav_controller.dart';
-import 'package:straight_to_yard/presentation/delivery/controllers/delivery_controller.dart';
-import 'package:straight_to_yard/presentation/widgets/shimmer_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DeliveryScreen extends GetView<DeliveryController> {
+class DeliveryScreen extends StatelessWidget {
   const DeliveryScreen({super.key});
 
   static const _green = Color(0xFF087C25);
@@ -23,6 +18,8 @@ class DeliveryScreen extends GetView<DeliveryController> {
   static const _muted = Color(0xFF757987);
   static const _line = Color(0xFFE4E8EA);
   static const _background = Color(0xFFF8FBFF);
+  static const _whatsAppNumber = '18762998543';
+  static const _displayPhone = '(876) 299-8543';
 
   @override
   Widget build(BuildContext context) {
@@ -36,80 +33,97 @@ class DeliveryScreen extends GetView<DeliveryController> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final horizontal = constraints.maxWidth >= 600 ? 8.w : 3.6.w;
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(horizontal, 1.2.h, horizontal, 0),
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 720),
-                    child: Column(
-                      children: [
-                        const _DeliveryHero(),
-                        SizedBox(height: 1.8.h),
-                        _DeliverySearchField(
-                          controller: controller.textEditingController,
-                        ),
-                        SizedBox(height: 1.5.h),
-                      ],
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(horizontal, 1.2.h, horizontal, 2.5.h),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 720),
+                child: Column(
+                  children: [
+                    const _DeliveryHero(),
+                    SizedBox(height: 1.6.h),
+                    const _InstructionCard(),
+                    SizedBox(height: 1.6.h),
+                    const _CutoffNotice(),
+                    SizedBox(height: 1.6.h),
+                    const _RatesCard(
+                      title: 'Portmore, Spanish Town & Nearby',
+                      rates: _portmoreRates,
                     ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: RefreshIndicator(
-                  color: _green,
-                  onRefresh: () => Future.sync(() => controller.onRefresh()),
-                  child: PagedListView<int, GetAllPackage>.separated(
-                    pagingController: controller.pagingController,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding:
-                        EdgeInsets.fromLTRB(horizontal, 0, horizontal, 13.2.h),
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    builderDelegate: PagedChildBuilderDelegate<GetAllPackage>(
-                      animateTransitions: true,
-                      transitionDuration: 400.milliseconds,
-                      firstPageProgressIndicatorBuilder: (_) {
-                        return const _DeliveryShimmerList();
-                      },
-                      newPageProgressIndicatorBuilder: (_) {
-                        return const _DeliveryShimmerList();
-                      },
-                      noItemsFoundIndicatorBuilder: (_) {
-                        return const _StateMessage('No delivery packages found');
-                      },
-                      itemBuilder: (context, item, index) {
-                        return Center(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 720),
-                            child: _DeliveryPackageCard(item: item),
-                          ),
-                        );
-                      },
+                    SizedBox(height: 1.6.h),
+                    const _RatesCard(
+                      title: 'Kingston Delivery Fees',
+                      rates: _kingstonRates,
                     ),
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 1.5.h),
-                  ),
+                    SizedBox(height: 10.5.h),
+                  ],
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(horizontal, 0, horizontal, 1.1.h),
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 720),
-                    child: const _DeliveryFooter(),
-                  ),
-                ),
-              ),
-            ],
+            ),
           );
         },
       ),
     );
   }
+
+  static Future<void> openWhatsApp() async {
+    final message = Uri.encodeComponent(
+      'Hello Straight To Yard Couriers,\n\n'
+      'I would like to request a delivery.\n\n'
+      'Full name: \n'
+      'Intended delivery address: \n'
+      'Payment method: Cash/Transfer\n'
+      'Additional delivery note: ',
+    );
+    final uri = Uri.parse('https://wa.me/$_whatsAppNumber?text=$message');
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
 }
+
+const List<_DeliveryRate> _portmoreRates = [
+  _DeliveryRate('Central Portmore', '550'),
+  _DeliveryRate('Greater Portmore', '600'),
+  _DeliveryRate('Dunbeholding', '700'),
+  _DeliveryRate('Central Village', '700'),
+  _DeliveryRate('St. John\'s Road', '800'),
+  _DeliveryRate('Job\'s Lane', '800'),
+  _DeliveryRate('Green Acres', '1200'),
+  _DeliveryRate('Eltham', '800'),
+  _DeliveryRate('Brunswick', '900'),
+  _DeliveryRate('Angels', '900'),
+  _DeliveryRate('Tryall Heights', '900'),
+  _DeliveryRate('Fairview Park', '700'),
+  _DeliveryRate('Ensom', '800'),
+  _DeliveryRate('Marchpen Road', '700'),
+  _DeliveryRate('Hagley Park Rd', '700'),
+  _DeliveryRate('Three Miles', '700'),
+  _DeliveryRate('Washington Boulevard', '700'),
+  _DeliveryRate('Constant Spring', '800'),
+];
+
+const List<_DeliveryRate> _kingstonRates = [
+  _DeliveryRate('Downtown', '700'),
+  _DeliveryRate('Ferry', '900'),
+  _DeliveryRate('White Hall', '700'),
+  _DeliveryRate('Lady Musgrave Rd', '800'),
+  _DeliveryRate('Grants Pen', '800'),
+  _DeliveryRate('Knutsford Blvd', '700'),
+  _DeliveryRate('New Kingston', '800'),
+  _DeliveryRate('Half Way Tree', '800'),
+  _DeliveryRate('Roehampton Circle', '800'),
+  _DeliveryRate('Eliston Rd', '700'),
+  _DeliveryRate('Molynes Rd', '800'),
+  _DeliveryRate('Mountain View', '800'),
+  _DeliveryRate('South Camp Rd', '700'),
+  _DeliveryRate('Heroes Circle', '800'),
+  _DeliveryRate('Duhaney Park', '700'),
+  _DeliveryRate('Red Hills', '700'),
+  _DeliveryRate('Maxfield Ave', '700'),
+  _DeliveryRate('Dunrobin Ave', '700'),
+  _DeliveryRate('August Town', '1100'),
+  _DeliveryRate('Oxford Rd', '800'),
+];
 
 class _DeliveryHero extends StatelessWidget {
   const _DeliveryHero();
@@ -118,7 +132,7 @@ class _DeliveryHero extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(4.2.w, 2.1.h, 4.2.w, 2.1.h),
+      padding: EdgeInsets.fromLTRB(4.2.w, 2.2.h, 4.2.w, 2.2.h),
       decoration: BoxDecoration(
         color: DeliveryScreen._green,
         borderRadius: BorderRadius.circular(24),
@@ -141,9 +155,9 @@ class _DeliveryHero extends StatelessWidget {
               border: Border.all(color: DeliveryScreen._yellow, width: 1.2),
             ),
             child: Icon(
-              Icons.local_shipping_rounded,
+              Icons.delivery_dining_rounded,
               color: Colors.white,
-              size: 4.3.h,
+              size: 4.2.h,
             ),
           ),
           SizedBox(width: 4.w),
@@ -152,24 +166,24 @@ class _DeliveryHero extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Delivery Request',
+                  'Delivery Requests',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 13.8.sp,
-                    fontWeight: FontWeight.w800,
-                    height: 1.1,
+                    fontWeight: FontWeight.w900,
+                    height: 1.05,
                   ),
                 ),
-                SizedBox(height: 0.65.h),
+                SizedBox(height: 0.7.h),
                 Text(
-                  'Choose ready packages and schedule delivery.',
+                  'All deliveries are requested through WhatsApp.',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.9),
-                    fontSize: 9.6.sp,
+                    fontSize: 9.8.sp,
                     fontWeight: FontWeight.w500,
                     height: 1.18,
                   ),
@@ -183,512 +197,382 @@ class _DeliveryHero extends StatelessWidget {
   }
 }
 
-class _DeliverySearchField extends StatelessWidget {
-  const _DeliverySearchField({required this.controller});
-
-  final TextEditingController controller;
+class _InstructionCard extends StatelessWidget {
+  const _InstructionCard();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 6.8.h,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: DeliveryScreen._line),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x0D000000),
-            blurRadius: 14,
-            offset: Offset(0, 7),
-          ),
-        ],
-      ),
-      child: Row(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(4.w, 2.2.h, 4.w, 2.1.h),
+      decoration: _cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 4.w),
-          Icon(
-            Icons.search_rounded,
-            color: DeliveryScreen._green,
-            size: 4.1.h,
-          ),
-          SizedBox(width: 2.8.w),
-          Expanded(
-            child: TextFormField(
-              controller: controller,
-              onTapOutside: (event) => FocusScope.of(context).unfocus(),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Search by HAWB / Tracking / Supplier',
-                hintStyle:
-                    Theme.of(context).inputDecorationTheme.hintStyle?.copyWith(
-                          color: DeliveryScreen._muted,
-                          fontSize: 10.2.sp,
-                          fontWeight: FontWeight.w400,
-                        ) ??
-                        TextStyle(
-                          color: DeliveryScreen._muted,
-                          fontSize: 10.2.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
+          Row(
+            children: [
+              _IconBox(
+                icon: Icons.chat_rounded,
+                color: DeliveryScreen._green,
+                background: const Color(0xFFEFF7F1),
               ),
-              style: TextStyle(
-                color: DeliveryScreen._text,
-                fontSize: 10.2.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          SizedBox(width: 3.w),
-        ],
-      ),
-    );
-  }
-}
-
-class _DeliveryPackageCard extends GetView<DeliveryController> {
-  const _DeliveryPackageCard({required this.item});
-
-  final GetAllPackage item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      final selected = controller.selectedItems.contains(item);
-      return Material(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(22),
-          onTap: () => controller.onItemChecked(item),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            width: double.infinity,
-            padding: EdgeInsets.fromLTRB(3.4.w, 2.h, 3.4.w, 1.9.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: selected
-                    ? DeliveryScreen._green
-                    : DeliveryScreen._line,
-                width: selected ? 1.35 : 1,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x10000000),
-                  blurRadius: 18,
-                  offset: Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Row(
+              SizedBox(width: 3.2.w),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _SelectBadge(selected: selected),
-                    SizedBox(width: 3.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'HAWB: ${_hawb(item)}',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: DeliveryScreen._text,
-                                    fontSize: 10.4.sp,
-                                    fontWeight: FontWeight.w800,
-                                    height: 1.1,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 2.w),
-                              _AmountPill(amount: _money(item.packageInvoice)),
-                            ],
-                          ),
-                          SizedBox(height: 1.2.h),
-                          _DeliveryInfoRow(
-                            icon: Icons.calendar_month_outlined,
-                            label: 'Date:',
-                            value: item.createdAt.toDDMMYYYY,
-                          ),
-                          const _CardRule(),
-                          _DeliveryInfoRow(
-                            icon: Icons.person_outline_rounded,
-                            label: 'Name:',
-                            value: _dash(item.userName),
-                          ),
-                          const _CardRule(),
-                          _DeliveryInfoRow(
-                            icon: Icons.inventory_2_outlined,
-                            iconColor: DeliveryScreen._yellow,
-                            label: 'Supplier:',
-                            value: _dash(item.courier),
-                          ),
-                          const _CardRule(),
-                          _DeliveryInfoRow(
-                            icon: Icons.location_on_outlined,
-                            iconColor: Color(0xFF22AFC8),
-                            label: 'Tracking:',
-                            value: _dash(item.supplierTrackingNo),
-                          ),
-                          const _CardRule(),
-                          _DeliveryInfoRow(
-                            icon: Icons.description_outlined,
-                            iconColor: Color(0xFF22283A),
-                            label: 'Description:',
-                            value: _dash(item.itemDescription),
-                          ),
-                        ],
+                    Text(
+                      'Message us on WhatsApp',
+                      style: TextStyle(
+                        color: DeliveryScreen._text,
+                        fontSize: 12.2.sp,
+                        fontWeight: FontWeight.w900,
+                        height: 1.1,
+                      ),
+                    ),
+                    SizedBox(height: 0.5.h),
+                    Text(
+                      DeliveryScreen._displayPhone,
+                      style: TextStyle(
+                        color: DeliveryScreen._green,
+                        fontSize: 11.3.sp,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
+            ],
+          ),
+          SizedBox(height: 2.h),
+          Text(
+            'Please provide:',
+            style: TextStyle(
+              color: DeliveryScreen._text,
+              fontSize: 10.4.sp,
+              fontWeight: FontWeight.w900,
             ),
           ),
-        ),
-      );
-    });
-  }
-
-  static String _hawb(GetAllPackage item) {
-    if (item.trackingNo.trim().isNotEmpty) return item.trackingNo.trim();
-    if (item.packageCode.trim().isNotEmpty) return item.packageCode.trim();
-    if (item.manifestNo.trim().isNotEmpty) return item.manifestNo.trim();
-    return '-';
-  }
-
-  static String _dash(String? value) {
-    final clean = value?.trim() ?? '';
-    return clean.isEmpty ? '-' : clean;
-  }
-
-  static String _money(String? value) {
-    final amount = num.tryParse(value ?? '0') ?? 0;
-    return 'JMD ${amount.toStringAsFixed(2)}';
-  }
-}
-
-class _SelectBadge extends StatelessWidget {
-  const _SelectBadge({required this.selected});
-
-  final bool selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 180),
-      width: 5.6.h,
-      height: 5.6.h,
-      decoration: BoxDecoration(
-        color: selected ? DeliveryScreen._green : const Color(0xFFEFF7F1),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Icon(
-        selected ? Icons.check_rounded : Icons.local_shipping_outlined,
-        color: selected ? Colors.white : DeliveryScreen._green,
-        size: selected ? 3.2.h : 3.h,
+          SizedBox(height: 1.1.h),
+          const _ChecklistItem(
+            icon: Icons.person_outline_rounded,
+            title: 'Full name',
+          ),
+          const _ChecklistItem(
+            icon: Icons.location_on_outlined,
+            title: 'Intended delivery address',
+          ),
+          const _ChecklistItem(
+            icon: Icons.payments_outlined,
+            title: 'Payment method',
+            subtitle: 'Cash or Transfer',
+          ),
+          const _ChecklistItem(
+            icon: Icons.sticky_note_2_outlined,
+            title: 'Additional delivery note',
+          ),
+          SizedBox(height: 1.8.h),
+          SizedBox(
+            width: double.infinity,
+            height: 5.8.h,
+            child: ElevatedButton(
+              onPressed: DeliveryScreen.openWhatsApp,
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: DeliveryScreen._green,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(11),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.chat_rounded, size: 2.4.h),
+                  SizedBox(width: 2.w),
+                  Text(
+                    'Open WhatsApp',
+                    style: TextStyle(
+                      fontSize: 10.6.sp,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _AmountPill extends StatelessWidget {
-  const _AmountPill({required this.amount});
-
-  final String amount;
+class _CutoffNotice extends StatelessWidget {
+  const _CutoffNotice();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2.4.w, vertical: 0.75.h),
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(4.w, 1.7.h, 4.w, 1.7.h),
       decoration: BoxDecoration(
         color: const Color(0xFFFFF5DF),
-        borderRadius: BorderRadius.circular(9),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: const Color(0xFFFFE2A5)),
       ),
-      child: Text(
-        amount,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: DeliveryScreen._deepGreen,
-          fontSize: 8.6.sp,
-          fontWeight: FontWeight.w800,
-          height: 1.1,
-        ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _IconBox(
+            icon: Icons.schedule_rounded,
+            color: DeliveryScreen._yellow,
+            background: Colors.white,
+          ),
+          SizedBox(width: 3.w),
+          Expanded(
+            child: Text(
+              'To be fulfilled for same-day delivery, please request before 11:55 a.m. Requests after 11:55 a.m. will be considered for the next day.',
+              style: TextStyle(
+                color: DeliveryScreen._text,
+                fontSize: 9.4.sp,
+                fontWeight: FontWeight.w700,
+                height: 1.28,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _DeliveryInfoRow extends StatelessWidget {
-  const _DeliveryInfoRow({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.iconColor = DeliveryScreen._green,
-  });
+class _RatesCard extends StatelessWidget {
+  const _RatesCard({required this.title, required this.rates});
 
-  final IconData icon;
-  final String label;
-  final String value;
-  final Color iconColor;
+  final String title;
+  final List<_DeliveryRate> rates;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 4.2.h,
-          child: Icon(icon, color: iconColor, size: 2.6.h),
-        ),
-        SizedBox(width: 1.w),
-        Text(
-          label,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: DeliveryScreen._text,
-            fontSize: 9.3.sp,
-            fontWeight: FontWeight.w700,
-            height: 1.1,
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(3.6.w, 2.h, 3.6.w, 1.6.h),
+      decoration: _cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _IconBox(
+                icon: Icons.price_check_rounded,
+                color: DeliveryScreen._green,
+                background: const Color(0xFFEFF7F1),
+              ),
+              SizedBox(width: 3.w),
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: DeliveryScreen._text,
+                    fontSize: 11.4.sp,
+                    fontWeight: FontWeight.w900,
+                    height: 1.12,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        SizedBox(width: 2.w),
-        Expanded(
-          child: Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: DeliveryScreen._green,
-              fontSize: 9.3.sp,
-              fontWeight: FontWeight.w500,
-              height: 1.1,
+          SizedBox(height: 1.5.h),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FBFF),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: DeliveryScreen._line),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Location',
+                    style: _headerStyle(),
+                  ),
+                ),
+                Text('Price', style: _headerStyle()),
+              ],
             ),
           ),
-        ),
-      ],
+          SizedBox(height: 0.5.h),
+          ...rates.map((rate) => _RateRow(rate: rate)),
+          SizedBox(height: 0.8.h),
+          Text(
+            'Prices are subject to change based on package size and delivery distance.',
+            style: TextStyle(
+              color: DeliveryScreen._muted,
+              fontSize: 8.4.sp,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle _headerStyle() {
+    return TextStyle(
+      color: DeliveryScreen._muted,
+      fontSize: 8.6.sp,
+      fontWeight: FontWeight.w800,
     );
   }
 }
 
-class _CardRule extends StatelessWidget {
-  const _CardRule();
+class _RateRow extends StatelessWidget {
+  const _RateRow({required this.rate});
+
+  final _DeliveryRate rate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.05.h),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: DeliveryScreen._line, width: 1),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              rate.location,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: DeliveryScreen._text,
+                fontSize: 9.4.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          SizedBox(width: 3.w),
+          Text(
+            '\$${rate.price}',
+            style: TextStyle(
+              color: DeliveryScreen._green,
+              fontSize: 9.6.sp,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChecklistItem extends StatelessWidget {
+  const _ChecklistItem({
+    required this.icon,
+    required this.title,
+    this.subtitle,
+  });
+
+  final IconData icon;
+  final String title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 1.25.h),
-      child: Container(height: 1, color: DeliveryScreen._line),
-    );
-  }
-}
-
-class _DeliveryFooter extends GetView<DeliveryController> {
-  const _DeliveryFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      final count = controller.selectedItems.length;
-      return Container(
-        padding: EdgeInsets.fromLTRB(3.4.w, 1.4.h, 3.4.w, 1.4.h),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: DeliveryScreen._line),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x18000000),
-              blurRadius: 24,
-              offset: Offset(0, 10),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: _FooterMetric(
-                    label: 'Packages',
-                    value: count.toString(),
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 4.7.h,
-                  color: DeliveryScreen._line,
-                ),
-                Expanded(
-                  child: _FooterMetric(
-                    label: 'Total Due',
-                    value: 'JMD ${controller.totalAmount.value.toStringAsFixed(2)}',
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 1.2.h),
-            Row(
-              children: [
-                SizedBox(
-                  width: 24.w,
-                  height: 5.6.h,
-                  child: OutlinedButton(
-                    onPressed: count <= 0 ? null : () => controller.onClear(),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: DeliveryScreen._green,
-                      side: const BorderSide(color: Color(0xFFD8E9DD)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
-                      ),
-                    ),
-                    child: Text(
-                      'Clear',
+      padding: EdgeInsets.only(bottom: 1.h),
+      child: Row(
+        children: [
+          _IconBox(
+            icon: icon,
+            color: DeliveryScreen._green,
+            background: const Color(0xFFEFF7F1),
+            compact: true,
+          ),
+          SizedBox(width: 3.w),
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(text: title),
+                  if (subtitle != null)
+                    TextSpan(
+                      text: ' - $subtitle',
                       style: TextStyle(
-                        fontSize: 9.6.sp,
-                        fontWeight: FontWeight.w800,
+                        color: DeliveryScreen._muted,
+                        fontSize: 9.2.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(width: 3.w),
-                Expanded(
-                  child: SizedBox(
-                    height: 5.6.h,
-                    child: ElevatedButton(
-                      onPressed: count <= 0 ? null : _openRequest,
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: DeliveryScreen._green,
-                        foregroundColor: Colors.white,
-                        disabledBackgroundColor: const Color(0xFFE4E8EA),
-                        disabledForegroundColor: DeliveryScreen._muted,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Create Request',
-                            style: TextStyle(
-                              fontSize: 10.2.sp,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          SizedBox(width: 1.2.w),
-                          Icon(Icons.arrow_forward_rounded, size: 2.3.h),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
+              style: TextStyle(
+                color: DeliveryScreen._text,
+                fontSize: 9.6.sp,
+                fontWeight: FontWeight.w800,
+                height: 1.2,
+              ),
             ),
-          ],
-        ),
-      );
-    });
-  }
-
-  void _openRequest() {
-    final bottomNavNestedID = find<BottomNavController>().bottomNavNestedID;
-    Get.toNamed(
-      AppPages.managePickupRequest,
-      id: bottomNavNestedID,
-    );
-  }
-}
-
-class _FooterMetric extends StatelessWidget {
-  const _FooterMetric({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: DeliveryScreen._text,
-            fontSize: 11.2.sp,
-            fontWeight: FontWeight.w900,
-            height: 1.05,
           ),
-        ),
-        SizedBox(height: 0.45.h),
-        Text(
-          label,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: DeliveryScreen._muted,
-            fontSize: 8.7.sp,
-            fontWeight: FontWeight.w600,
-            height: 1.1,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _StateMessage extends StatelessWidget {
-  const _StateMessage(this.message);
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.only(top: 12.h),
-        child: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: DeliveryScreen._muted,
-            fontSize: 10.5.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        ],
       ),
     );
   }
 }
 
-class _DeliveryShimmerList extends StatelessWidget {
-  const _DeliveryShimmerList();
+class _IconBox extends StatelessWidget {
+  const _IconBox({
+    required this.icon,
+    required this.color,
+    required this.background,
+    this.compact = false,
+  });
+
+  final IconData icon;
+  final Color color;
+  final Color background;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) {
-        return ShimmerWidget(
-          radius: BorderRadius.circular(22),
-          child: SizedBox(width: context.width, height: 33.h),
-        );
-      },
-      separatorBuilder: (context, index) => SizedBox(height: 1.5.h),
+    final size = compact ? 4.6.h : 5.8.h;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(compact ? 12 : 15),
+      ),
+      child: Icon(icon, color: color, size: compact ? 2.4.h : 3.h),
     );
   }
+}
+
+BoxDecoration _cardDecoration() {
+  return BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(22),
+    border: Border.all(color: DeliveryScreen._line),
+    boxShadow: const [
+      BoxShadow(
+        color: Color(0x10000000),
+        blurRadius: 18,
+        offset: Offset(0, 8),
+      ),
+    ],
+  );
+}
+
+class _DeliveryRate {
+  const _DeliveryRate(this.location, this.price);
+
+  final String location;
+  final String price;
 }
