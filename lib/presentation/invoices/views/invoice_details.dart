@@ -653,36 +653,6 @@ class _AmountDueCard extends GetView<InvoiceDetailController> {
               ),
             ),
           ),
-          SizedBox(height: 2.h),
-          SizedBox(
-            width: double.infinity,
-            height: 5.5.h,
-            child: ElevatedButton(
-              onPressed: controller.startPayment,
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: InvoiceDetails._green,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(9),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pay Now',
-                    style: TextStyle(
-                      fontSize: 10.8.sp,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  SizedBox(width: 2.w),
-                  Icon(Icons.arrow_forward_rounded, size: 3.h),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     );
